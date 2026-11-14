@@ -9,9 +9,7 @@ from __future__ import annotations
 
 import unittest
 
-import clause_index as ci
-
-
+import labelreview.clause_index as ci
 SAMPLE = """第一条 为了规范管理，制定本办法。
 第二条 生产经营者应当遵守本办法。
 违反本办法第八条、第九条规定的，依照有关规定处理。

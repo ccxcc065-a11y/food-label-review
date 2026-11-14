@@ -309,7 +309,7 @@ def _pack_order(report, document):
 
 def _clause_refs(report, item):
     """条款引用必须带文档与版本；不同标准的同号条款不能互相顶替。"""
-    from knowledge import clause as clause_text, clause_tokens, resolve_name
+    from labelreview.knowledge import clause as clause_text, clause_tokens, resolve_name
 
     refs = []
     sources = []

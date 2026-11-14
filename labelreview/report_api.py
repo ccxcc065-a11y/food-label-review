@@ -10,9 +10,9 @@ import secrets
 import threading
 from pathlib import Path
 
-from audit import audit
-import decision_set
-from decision_set import (
+from labelreview.audit import audit
+import labelreview.decision_set as decision_set
+from labelreview.decision_set import (
     DecisionSet,
     RulingValidationError,
     StaleRevisionError,
@@ -26,19 +26,19 @@ from decision_set import (
     persist_for_task,
     seed_from_report,
 )
-from extract import extract
-import html_check as html_check_module
-import knowledge
-import report_check
-import report_plan
-import report_projection
-import report_render
-import runtime_agents
-import snapshot as snapshot_module
-import task_store
-from timing import TaskTimer
+from labelreview.extract import extract
+import labelreview.html_check as html_check_module
+import labelreview.knowledge as knowledge
+import labelreview.report_check as report_check
+import labelreview.report_plan as report_plan
+import labelreview.report_projection as report_projection
+import labelreview.report_render as report_render
+import labelreview.runtime_agents as runtime_agents
+import labelreview.snapshot as snapshot_module
+import labelreview.task_store as task_store
+from labelreview.timing import TaskTimer
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 REPORTS = ROOT / ".runtime" / "reports"
 CHROME_CANDIDATES = [
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -187,7 +187,7 @@ def _prefilter(report, candidate, blocks, scope_text):
     checks["scope"] = _scope_ok(candidate.get("clauseRefs") or [], scope_text)
     checks["field"] = None
     try:
-        import audit_retrieval
+        import labelreview.audit_retrieval as audit_retrieval
         cleaned = audit_retrieval.sanitize_review_row(candidate)
         checks["soundConfirmation"] = not audit_retrieval.unsound_fail_confirmation(
             cleaned, original=candidate)
@@ -226,7 +226,7 @@ def _bind_live_candidate(candidate, report, plan, context):
 
 def _annotate_candidates(candidates, report, plan, context):
     try:
-        import audit_retrieval
+        import labelreview.audit_retrieval as audit_retrieval
     except Exception:
         audit_retrieval = None
     for candidate in candidates or []:
@@ -361,7 +361,7 @@ def _promote_candidates(report, plan, candidates, context):
 
 def _reclassify(report):
     try:
-        import report_plan
+        import labelreview.report_plan as report_plan
         return report_plan.classify(report.get("items") or [])
     except Exception:
         return report.get("classification")
@@ -551,7 +551,7 @@ def _generate_pdf(report_id, html_text, timer, clicked_utc=None):
         if PDF_RENDERER is not None:
             PDF_RENDERER(html_text, temp)
         else:
-            import chrome_pdf
+            import labelreview.chrome_pdf as chrome_pdf
             chrome = resolve_chrome()
             # CLI --print-to-pdf hangs on some Linux Chrome 156 builds; CDP printToPDF does not.
             chrome_pdf.print_html(chrome, html_text, temp, timeout=120)
@@ -786,7 +786,7 @@ def build(payload):
         timer.mark("extract")
     knowledge.reset_timing()
     try:
-        import registry as registry_mod
+        import labelreview.registry as registry_mod
         context = dict(context, versions=registry_mod.pin_versions(context, payload))
     except Exception:
         context = dict(context)

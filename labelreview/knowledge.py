@@ -12,7 +12,7 @@ import re
 import unicodedata
 
 
-ROOT = Path(__file__).resolve().with_name("knowledge")
+ROOT = Path(__file__).resolve().parent.parent / "knowledge"
 DOCUMENTS = (ROOT / "documents").resolve()
 EFFECTIVE_2025 = "2027-03-16"
 
@@ -113,7 +113,7 @@ def source(rule_id, version, bundle_id=None):
     """
     record = None
     try:
-        from registry import default_registry, active_bundle
+        from labelreview.registry import default_registry, active_bundle
         bundle_id = bundle_id or ((active_bundle() or {}).get("id"))
         record = default_registry().citation_record(rule_id, version, bundle_id)
     except Exception:
@@ -205,7 +205,7 @@ def _active_bundle_id(bundle_id=None):
     if bundle_id:
         return bundle_id
     try:
-        from registry import active_bundle, default_registry
+        from labelreview.registry import active_bundle, default_registry
         current = active_bundle()
         if current and current.get("id"):
             return current.get("id")
@@ -219,7 +219,7 @@ def _apply_corrections(record, document, number, bundle_id):
     if not record:
         return record
     try:
-        from registry import default_registry
+        from labelreview.registry import default_registry
         rows = default_registry().corrections(document, bundle_id)
     except Exception:
         rows = []
@@ -250,7 +250,7 @@ def _attach_conflict(record, document, number, bundle_id):
     if not record:
         return record
     try:
-        from registry import default_registry
+        from labelreview.registry import default_registry
         conflict = default_registry().conflict_for(document, bundle_id)
     except Exception:
         conflict = None
@@ -279,14 +279,14 @@ def _clause(document, number, bundle_id=None):
     返回 {text, location, page, paragraph, ...}；取不到时返回 None。
     只整理空白，不改写条款文字。模型解释不作为条款原文返回。
     """
-    import clause_index
+    import labelreview.clause_index as clause_index
     if not isinstance(document, str) or not isinstance(number, str) or not number:
         return None
     number = clause_index.normalize_clause_number(number)
     bundle_id = _active_bundle_id(bundle_id)
     slices = None
     try:
-        from registry import default_registry, KnowledgePackMissing
+        from labelreview.registry import default_registry, KnowledgePackMissing
     except Exception:
         default_registry = None
         KnowledgePackMissing = ()
@@ -322,11 +322,11 @@ def clause_for_standard(standard, number, bundle_id=None):
     """Read a clause by standard identity. If PDF and Word disagree, report the
     conflict and do not pick a file at random.
     """
-    import clause_index
+    import labelreview.clause_index as clause_index
     number = clause_index.normalize_clause_number(number)
     bundle_id = _active_bundle_id(bundle_id)
     try:
-        from registry import default_registry
+        from labelreview.registry import default_registry
         links = default_registry().file_links(bundle_id)
     except Exception:
         links = []
@@ -371,9 +371,9 @@ def clause_for_standard(standard, number, bundle_id=None):
 
 def library_documents(bundle_id=None):
     """Documents in the authorized / published library. No blanket 2011 exclusion."""
-    import clause_index
+    import labelreview.clause_index as clause_index
     try:
-        from registry import default_registry
+        from labelreview.registry import default_registry
         docs = ((default_registry().load_bundle(bundle_id) or {}).get("knowledge") or {}).get("manifest", {}).get("documents")
     except Exception:
         docs = None
@@ -517,7 +517,7 @@ def lookup_clause(number, document=None, standard=None, bundle_id=None):
         return _clause(document, number, bundle_id)
     # Search every published document for an exact number match.
     try:
-        from registry import default_registry
+        from labelreview.registry import default_registry
         docs = default_registry().all_clauses(bundle_id)
     except Exception:
         docs = {}
@@ -531,7 +531,7 @@ def lookup_clause(number, document=None, standard=None, bundle_id=None):
 
 def _clause_search_corpus(bundle_id=None):
     try:
-        from registry import default_registry
+        from labelreview.registry import default_registry
         return default_registry().all_clauses(bundle_id)
     except Exception:
         return {}
@@ -539,7 +539,7 @@ def _clause_search_corpus(bundle_id=None):
 
 def search_clauses(query, mode="keyword", document=None, bundle_id=None, limit=20):
     """Exact clause-number, keyword, topic, or related-clause expansion. No vectors."""
-    import clause_index
+    import labelreview.clause_index as clause_index
     query = str(query or "").strip()
     if not query:
         return []
@@ -583,6 +583,6 @@ def search_clauses(query, mode="keyword", document=None, bundle_id=None, limit=2
 
 def document_kept_despite_2011(document_id):
     """Helper for acceptance: GB 26687-2011 stays in the library."""
-    import clause_index
+    import labelreview.clause_index as clause_index
     meta = document_metadata(document_id) or {}
     return clause_index.keep_authorized_document(meta) and document_id in _documents()

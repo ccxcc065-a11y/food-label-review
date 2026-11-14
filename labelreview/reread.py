@@ -32,8 +32,8 @@ from pathlib import Path
 
 from PIL import Image
 
-from extract import BASIS, NUTRIENT_AMOUNT, NUTRIENT_PATTERN, basis_name, nutrient_unit
-from nutrition_guard import ORDER, anomalies, display
+from labelreview.extract import BASIS, NUTRIENT_AMOUNT, NUTRIENT_PATTERN, basis_name, nutrient_unit
+from labelreview.nutrition_guard import ORDER, anomalies, display
 
 
 # NRV% 列的读数通常单独成块，形如 "21%"；表头「营养素参考值%」不参与定位。
@@ -293,7 +293,7 @@ def improve(image_bytes, blocks, read, scales=(2, 4), margin=0.012):
 # 通用可疑重读：不只营养表，任何「读数可疑」的文字都可以放大重读。
 # ---------------------------------------------------------------------------
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 OCR_BINARY = ROOT / ".runtime" / "ocr"
 # 右括号后直接接汉字（疑似漏分隔符）、重复分隔符、替换字符、未闭合引号。
 SUSPICIOUS_PUNCT = re.compile(

@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import html_check  # noqa: E402  必须在 sys.path 兜底之后导入
+import labelreview.html_check as html_check  # noqa: E402  必须在 sys.path 兜底之后导入
 
 REPORT_JS = ROOT / "report.js"
 

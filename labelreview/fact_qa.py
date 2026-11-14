@@ -7,7 +7,7 @@ import hashlib
 import json
 import re
 
-from extract import (
+from labelreview.extract import (
     BASIS,
     NUTRIENT_AMOUNT,
     NUTRIENT_PATTERN,

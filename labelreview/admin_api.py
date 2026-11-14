@@ -6,11 +6,9 @@ import json
 from pathlib import Path
 from urllib.parse import parse_qs
 
-import clause_index
-import knowledge
-import registry as registry_mod
-
-
+import labelreview.clause_index as clause_index
+import labelreview.knowledge as knowledge
+import labelreview.registry as registry_mod
 class AdminError(Exception):
     def __init__(self, status, message):
         super().__init__(message)
@@ -94,7 +92,7 @@ def handle_get(path, target):
                 "qa": ((_reg().load_bundle() or {}).get("knowledge") or {}).get("ingestQa", {}).get(key),
                 "slices": preview, "conflict": _reg().conflict_for(key)}
     if path == "/api/admin/rules":
-        import rule_registry
+        import labelreview.rule_registry as rule_registry
         bundle_id = query.get("bundle") or query.get("bundleId") or None
         listed = rule_registry.list_rules(bundle_id or query.get("rulesVersion") or query.get("ruleReleaseId"))
         # Same published records as audit execution; list_rules only overlays

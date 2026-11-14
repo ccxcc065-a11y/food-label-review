@@ -5,7 +5,7 @@ from hashlib import sha256
 import json
 import re
 
-from extract import MASS, field_candidates, label_blocks, net_candidates, read_pages
+from labelreview.extract import MASS, field_candidates, label_blocks, net_candidates, read_pages
 
 
 AREAS = {"front": "正面", "back": "背面", "side": "侧面", "seal": "封口／喷码区"}

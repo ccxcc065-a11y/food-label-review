@@ -9,10 +9,8 @@ from __future__ import annotations
 
 import unittest
 
-import extract
-import html_check
-
-
+import labelreview.extract as extract
+import labelreview.html_check as html_check
 def page(rows):
     blocks = [{"id": "b%d" % index, "text": text, "confidence": 1, "box": box}
               for index, (text, box) in enumerate(rows, 1)]

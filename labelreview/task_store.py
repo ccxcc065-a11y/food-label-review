@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any, Mapping, Optional
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DIR = ROOT / ".runtime" / "tasks"
 _TASK_ID_RE = re.compile(r"^[A-Za-z0-9._-]{1,80}$")
 _SECRET_KEYS = {

@@ -11,16 +11,16 @@ detector 返回 (variant, values, refs)：variant 用于同一检查点的不同
 """
 
 import json
-import evidence_checklist
+import labelreview.evidence_checklist as evidence_checklist
 import re
 import statistics
 from decimal import Decimal
 from pathlib import Path
 
-from extract import MASS, NUTRIENT_PATTERN, UNITS
+from labelreview.extract import MASS, NUTRIENT_PATTERN, UNITS
 
 
-ROOT = Path(__file__).resolve().with_name("knowledge")
+ROOT = Path(__file__).resolve().parent.parent / "knowledge"
 DEFINITIONS = ROOT / "review_notes.json"
 
 PLACE = re.compile(r"([\u4e00-\u9fff]{1,3}(?:州|市|县|镇|乡|区))")
@@ -299,7 +299,7 @@ def pack_quantity(report, draft, result):
 # ---------------------------------------------------------------- 30 ~ 32
 
 def _helpers():
-    from audit import ingredient_words, name_ingredient_hits
+    from labelreview.audit import ingredient_words, name_ingredient_hits
     return ingredient_words, name_ingredient_hits
 
 

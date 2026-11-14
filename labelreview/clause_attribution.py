@@ -96,7 +96,7 @@ def is_gb7718_document(document_id: str, record: Optional[Mapping[str, Any]] = N
         name = str(record.get("name") or record.get("standardName") or "")
     if not name and key:
         try:
-            import knowledge
+            import labelreview.knowledge as knowledge
             meta = knowledge.document_metadata(key) or {}
             name = str(meta.get("name") or "")
         except Exception:

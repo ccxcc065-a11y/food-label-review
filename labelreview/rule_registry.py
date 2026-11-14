@@ -14,10 +14,8 @@ import os
 import re
 from pathlib import Path
 
-import registry as registry_mod
-
-
-ROOT = Path(__file__).resolve().parent
+import labelreview.registry as registry_mod
+ROOT = Path(__file__).resolve().parent.parent
 CHECKPOINTS_JSON = ROOT / "checkpoints.json"
 
 
@@ -503,7 +501,7 @@ class RuleRegistry:
             report = factSnapshot
         else:
             try:
-                import audit as audit_mod
+                import labelreview.audit as audit_mod
                 report = audit_mod.audit(payload)
             except Exception as exc:
                 execution_error = exc

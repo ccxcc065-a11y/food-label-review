@@ -21,8 +21,7 @@ import hashlib
 import re
 from collections import Counter, defaultdict
 
-import clause_index
-
+import labelreview.clause_index as clause_index
 CN_DIGITS = {"零": 0, "一": 1, "二": 2, "两": 2, "三": 3, "四": 4, "五": 5,
              "六": 6, "七": 7, "八": 8, "九": 9}
 ARTICLE_ID = re.compile(r"^第([一二三四五六七八九十百零两]+)条$")

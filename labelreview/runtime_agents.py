@@ -8,13 +8,12 @@ import time
 from types import SimpleNamespace
 import urllib.request
 
-from audit import audit
-from extract import read_pages
-from knowledge import clause as clause_text, clause_tokens, document_metadata, resolve_document
-import audit_retrieval
-import decision_set
-
-ROOT = Path(__file__).resolve().parent
+from labelreview.audit import audit
+from labelreview.extract import read_pages
+from labelreview.knowledge import clause as clause_text, clause_tokens, document_metadata, resolve_document
+import labelreview.audit_retrieval as audit_retrieval
+import labelreview.decision_set as decision_set
+ROOT = Path(__file__).resolve().parent.parent
 ROLES = (('review', '审核'), ('write', '撰稿'), ('verify', '复核'))
 
 
@@ -192,7 +191,7 @@ def _library_context(report):
                 clauses[(document, number)] = {"id": token, "name": name, "clause": number,
                                                "text": text[:600] + ("…（后略）" if len(text) > 600 else "")}
     try:
-        from notes import definitions as note_definitions
+        from labelreview.notes import definitions as note_definitions
         catalogue, _ = note_definitions()
         fired = {note.get("id") for note in report.get("reviewNotes") or [] if isinstance(note, dict)}
         for key, entry in sorted(catalogue.items(), key=lambda pair: pair[1].get("order", 99)):
@@ -711,7 +710,7 @@ def _remediation_guidance():
 def _checkpoint_brief():
     """只给整改需要的检查点摘要：id、标题、条款。"""
     try:
-        from notes import definitions as note_definitions
+        from labelreview.notes import definitions as note_definitions
         catalogue, _ = note_definitions()
         return [{"id": key, "title": entry.get("title"), "clause": entry.get("clause")}
                 for key, entry in sorted(catalogue.items(), key=lambda pair: pair[1].get("order", 99))

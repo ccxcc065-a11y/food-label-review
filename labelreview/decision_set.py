@@ -1079,7 +1079,7 @@ def seed_from_report(decisions: "DecisionSet", report: Optional[Mapping[str, Any
     if not isinstance(report, Mapping):
         return decisions
     try:
-        from audit_retrieval import (
+        from labelreview.audit_retrieval import (
             is_formal_finding_item, sanitize_review_row, unsound_fail_confirmation,
         )
     except Exception:
@@ -1193,7 +1193,7 @@ def gate_writer_revisions(
 # -- minimal task hook (not a P5 task database) ----------------------------
 
 _RUNTIME_STORE: dict[str, "DecisionSet"] = {}
-_STORE_DIR = Path(__file__).resolve().parent / ".runtime" / "decisions"
+_STORE_DIR = Path(__file__).resolve().parent.parent / ".runtime" / "decisions"
 _TASK_ID_RE = re.compile(r"^[A-Za-z0-9._-]{1,80}$")
 
 

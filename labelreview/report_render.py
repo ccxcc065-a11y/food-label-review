@@ -3,7 +3,7 @@ import json
 import subprocess
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 NODE = (
     'global.window={location:{origin:"http://127.0.0.1"}};'
     'require("./report.js");'

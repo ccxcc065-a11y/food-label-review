@@ -9,8 +9,8 @@ from __future__ import annotations
 
 from typing import Any, Mapping, Optional, Sequence
 
-import decision_set
-from decision_set import DecisionSet, FAIL_CONCLUSION, PENDING_CONCLUSION
+import labelreview.decision_set as decision_set
+from labelreview.decision_set import DecisionSet, FAIL_CONCLUSION, PENDING_CONCLUSION
 
 SECTIONS = ("02", "03", "04", "06")
 

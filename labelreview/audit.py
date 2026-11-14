@@ -5,19 +5,19 @@ from decimal import Decimal, ROUND_HALF_EVEN, ROUND_HALF_UP
 from pathlib import Path
 import re
 
-import crosscheck
-import evidence_checklist as evidence_lib
-import exclusions
-import notes
-from consistency import check_consistency
-from evidence import LABELS, dated_targets, inspect_pages
-from extract import BASIS, MASS, MULTIPLIER, NUTRIENT_AMOUNT, PLATE_ANCHORS, UNITS, basis_name, extract_blocks, is_serving_basis, is_valid_basis, label_blocks, normalized, read_pages
-import fact_qa
-from knowledge import (EFFECTIVE_2025, clause_line, document_metadata as knowledge_metadata,
+import labelreview.crosscheck as crosscheck
+import labelreview.evidence_checklist as evidence_lib
+import labelreview.exclusions as exclusions
+import labelreview.notes as notes
+from labelreview.consistency import check_consistency
+from labelreview.evidence import LABELS, dated_targets, inspect_pages
+from labelreview.extract import BASIS, MASS, MULTIPLIER, NUTRIENT_AMOUNT, PLATE_ANCHORS, UNITS, basis_name, extract_blocks, is_serving_basis, is_valid_basis, label_blocks, normalized, read_pages
+import labelreview.fact_qa as fact_qa
+from labelreview.knowledge import (EFFECTIVE_2025, clause_line, document_metadata as knowledge_metadata,
                        grades as grade_standards, resolve_document as knowledge_resolve,
                        source as source_for)
-import registry as registry_mod
-from nutrition_guard import anomalies
+import labelreview.registry as registry_mod
+from labelreview.nutrition_guard import anomalies
 
 
 VERSION_LABELS = {
@@ -94,7 +94,7 @@ IRRADIATION_DENIAL = re.compile(r"(?:未|不|非|无)(?:经|经过|采用|使用
 IRRADIATION_WORDS = re.compile(r"辐照|电离辐射|电离能量|辐照加工|经辐照处理")
 # R14（GB 7718-2025 4.14 警示语）是转致性条款：只有命中已登记依据时才有结论。
 # 依据表由 scripts/build_warnings.py 从授权文件生成；读不到时整条按未检查／未覆盖处理。
-WARNING_BOOK_PATH = Path(__file__).resolve().parent / "knowledge" / "warnings.json"
+WARNING_BOOK_PATH = Path(__file__).resolve().parent.parent / "knowledge" / "warnings.json"
 SOLID_DRINK_DENIAL = re.compile(r"(?:不含|未含|不添加|未添加|不添加任何|不使用)(?:任何)?固体饮料|非固体饮料|不是固体饮料")
 SOLID_DRINK_SPECIES = re.compile(r"可食用菌种|食用菌种|菌种|菌株")
 GRADE_MARKS = re.compile(r"质量等级|品质等级|等级|一级|二级|三级|特级|优级")
@@ -2325,7 +2325,7 @@ def _audit_body(payload, draft, context, versions):
     result["reviewNotes"] = notes.build(report, draft, result)
     # A1：唯一分类数据（卡片、正文、章节标题、report_check 都读这一份）。
     try:
-        import report_plan as _plan
+        import labelreview.report_plan as _plan
         result["classification"] = _plan.classify(result["items"])
         # 结构化重读记录：original OCR、当前提取值、重读值、采用值互不覆盖。
         reverse = {label: key for key, label in NUTRIENT_LABELS.items()}
@@ -2372,7 +2372,7 @@ def _audit_body(payload, draft, context, versions):
         result["classification"] = None
     # V2.7 阶段 1：统一整改计划。02/03/06 的条目仍是 report.items，07 节改为读 plan 的 revision。
     try:
-        import report_plan
+        import labelreview.report_plan as report_plan
         plan = report_plan.build(report, draft, context)
         result["reportPlan"] = {"schemaVersion": plan["schemaVersion"], "snapshotId": plan["snapshotId"],
                                 "planVersion": plan.get("planVersion"),
@@ -2424,7 +2424,7 @@ def _audit_body(payload, draft, context, versions):
     # P3: record the 89-checkpoint ledger from the same published registry.
     # Existing item outcomes are not rewritten here.
     try:
-        import rule_registry
+        import labelreview.rule_registry as rule_registry
         product_profile = {
             "scope": scope,
             "nutritionRequired": context.get("nutritionRequired"),

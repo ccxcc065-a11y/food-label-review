@@ -268,30 +268,33 @@ node --test tests/test_report.js                       # 11 tests
 
 ## 仓库结构
 
+代码收在一个顶层包里（**扁平包是有意为之**：整条判定链在一个进程里自上而下读，模块都是函数库，不套框架、不拆到互相 import 的深层子包）：
+
 ```
-├── server.py             # HTTP 入口（/api/ocr /api/extract /api/report /api/health …）
-├── audit.py              # 审核主流程：字段、营养算术、逐项判定、证据门槛
-├── extract.py            # 文字块 → 结构化字段 + 营养表
-├── evidence.py           # 图片归属、覆盖、锚点
-├── evidence_checklist.py # 证据清单三态机
-├── clause_index.py       # 条款切片器（行首/引用/升序三规则）
-├── audit_retrieval.py    # 条款检索与引用校验（转致条款不得当依据）
-├── decision_set.py       # 裁定集：审批必须绑内容寻址 candidateId
-├── report_plan.py        # 统一整改计划（02/03/06/07 同源）
-├── report_render.py      # 服务端 HTML 渲染
-├── report_check.py       # 成稿前的渲染后检查
-├── html_check.py         # 检查规则（统计/标题/残留/截断/占位）
-├── registry.py           # 内容寻址发布包（bundle）+ 版本
-├── rule_registry.py      # 91 检查点账本与结果映射
-├── snapshot.py           # 快照指纹（输入 + 依赖版本）
-├── runtime_agents.py     # 可选 AI 复核与撰稿（契约式，事实由程序注入）
-├── knowledge.py          # 条款检索与引用解析（要求 sha256 一致）
-├── ocr.swift             # Apple Vision OCR
-├── report.js / app.js    # 前端渲染（零依赖）
-├── checkpoints.json      # 91 检查点（机器可读）
-├── knowledge/            # 仅元数据，无标准正文
-├── scripts/              # 工具脚本（依据表生成、切片自检）
-└── tests/                # 25 个离线测试
+├── server.py                 # 唯一入口：python3 server.py --open
+├── labelreview/              # 全部逻辑（36 个模块）
+│   ├── server.py             #   HTTP 路由与静态资源
+│   ├── audit.py              #   审核主流程：字段、营养算术、逐项判定、证据门槛
+│   ├── extract.py            #   文字块 → 结构化字段 + 营养表
+│   ├── evidence.py           #   图片归属、覆盖、锚点
+│   ├── evidence_checklist.py #   证据清单三态机
+│   ├── clause_index.py       #   条款切片器（行首 / 引用 / 升序三规则）
+│   ├── audit_retrieval.py    #   条款检索与引用校验（转致条款不得当依据）
+│   ├── decision_set.py       #   裁定集：审批必须绑内容寻址 candidateId
+│   ├── report_plan.py        #   统一整改计划（02/03/06/07 同源）
+│   ├── report_render.py      #   服务端 HTML 渲染
+│   ├── report_check.py       #   成稿前的渲染后检查
+│   ├── html_check.py         #   检查规则（统计/标题/残留/截断/占位）
+│   ├── registry.py           #   内容寻址发布包（bundle）+ 版本
+│   ├── rule_registry.py      #   91 检查点账本与结果映射
+│   ├── runtime_agents.py     #   可选 AI 复核与撰稿（事实由程序注入）
+│   └── …                     #   knowledge / snapshot / task_store / typography …
+├── report.js / app.js        # 前端渲染（零依赖、无构建）
+├── index.html / admin.html   # 工作台与管理页
+├── checkpoints.json          # 91 检查点（机器可读）
+├── knowledge/                # 仅元数据，无标准正文
+├── scripts/                  # 工具脚本（依据表生成、切片自检）
+└── tests/                    # 25 个离线 Python 测试（另有 11 个 Node 测试）
 ```
 
 架构图见上文 [How it works](#how-it-works)。

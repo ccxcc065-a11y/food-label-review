@@ -4,7 +4,7 @@ import json
 import os
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def _digest(value):
@@ -33,7 +33,7 @@ def build(payload, report, plan, context, audited_at, model):
             if ref.get("documentId"):
                 refs[ref["documentId"]] = True
     try:
-        from knowledge import document_metadata
+        from labelreview.knowledge import document_metadata
         knowledge = []
         for document in sorted(refs):
             meta = document_metadata(document) or {}
@@ -56,7 +56,7 @@ def build(payload, report, plan, context, audited_at, model):
         path = ROOT / "agents" / name
         prompts[name] = _file_sha(path) if path.exists() else ""
     try:
-        import registry as registry_mod
+        import labelreview.registry as registry_mod
         versions = registry_mod.pin_versions(context, payload)
     except Exception:
         versions = context.get("versions") if isinstance(context.get("versions"), dict) else {}
@@ -100,7 +100,7 @@ def build(payload, report, plan, context, audited_at, model):
 
 def _server_version():
     try:
-        import server
+        import labelreview.server as server
         return server.APP_VERSION
     except Exception:
         return ""
@@ -108,7 +108,7 @@ def _server_version():
 
 def _plan_schema():
     try:
-        import report_plan
+        import labelreview.report_plan as report_plan
         return report_plan.SCHEMA_VERSION
     except Exception:
         return None
@@ -116,7 +116,7 @@ def _plan_schema():
 
 def _timeout():
     try:
-        import runtime_agents
+        import labelreview.runtime_agents as runtime_agents
         return runtime_agents.STAGE_TIMEOUT
     except Exception:
         return None
@@ -124,7 +124,7 @@ def _timeout():
 
 def _review_timeout():
     try:
-        import runtime_agents
+        import labelreview.runtime_agents as runtime_agents
         return runtime_agents.REVIEW_TIMEOUT
     except Exception:
         return None

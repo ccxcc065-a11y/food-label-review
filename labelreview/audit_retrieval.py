@@ -12,12 +12,10 @@ import re
 from copy import deepcopy
 from pathlib import Path
 
-import clause_index
-import knowledge
-import clause_attribution
-import registry as registry_mod
-
-
+import labelreview.clause_index as clause_index
+import labelreview.knowledge as knowledge
+import labelreview.clause_attribution as clause_attribution
+import labelreview.registry as registry_mod
 CHECKED = "已查"
 UNCHECKED = "未查"
 APPLICABLE = "适用"
@@ -430,7 +428,7 @@ def _library_coverage_rows():
     path = knowledge.ROOT / "knowledge" / "coverage.json" if hasattr(knowledge, "ROOT") else None
     try:
         from pathlib import Path
-        data = json.loads((Path(__file__).resolve().parent / "knowledge" / "coverage.json").read_text())
+        data = json.loads((Path(__file__).resolve().parent.parent / "knowledge" / "coverage.json").read_text())
         return data.get("clauses") or {}
     except (OSError, ValueError):
         return {}
@@ -508,7 +506,7 @@ def _warning_basis_document_ids(refresh=False):
     这里直接读 knowledge/warnings.json，避免反向依赖 audit.py。
     """
     global _WARNING_BASIS_CACHE
-    path = Path(__file__).resolve().parent / "knowledge" / "warnings.json"
+    path = Path(__file__).resolve().parent.parent / "knowledge" / "warnings.json"
     try:
         stat = path.stat()
     except OSError:
@@ -619,7 +617,7 @@ def replay_review_decision_set(payload_or_bundle):
     Replays items + locked judgments through sanitize + the unsound-fail filter.
     Does not write disk, does not call the model, does not mutate archives.
     """
-    import decision_set as decision_set_mod
+    import labelreview.decision_set as decision_set_mod
     if hasattr(payload_or_bundle, "report"):
         report = payload_or_bundle.report or {}
         review = getattr(payload_or_bundle, "review", None) or {}

@@ -18,8 +18,7 @@ import sqlite3
 import uuid
 from pathlib import Path
 
-import registry as registry_mod
-
+import labelreview.registry as registry_mod
 SCHEMA_VERSION = "relations-1"
 
 SCHEMA = """

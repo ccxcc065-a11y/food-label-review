@@ -643,18 +643,18 @@ def extract_blocks(pages):
     draft = {"fields": fields, "nutrition": nutrition, "nutritionConflict": conflicting,
             "scopeHint": next(iter(scope_flags)) if len(scope_flags) == 1 else "unknown"}
     # 延迟导入，避免与 fact_qa 互相引用。
-    from fact_qa import attach_nutrition_qa
+    from labelreview.fact_qa import attach_nutrition_qa
     attach_nutrition_qa(draft, pages)
     return draft
 
 
 def extract(payload):
     # Keep the same entry point for HTTP, the sample generator and local callers.
-    from evidence import inspect_pages
+    from labelreview.evidence import inspect_pages
     pages, _, attribution, anchors = inspect_pages(payload)
     if attribution["status"] == "confirmed":
         draft = extract_blocks(pages)
-        from evidence import DATE, DATE_HINT
+        from labelreview.evidence import DATE, DATE_HINT
         for role in ("production", "expiry"):
             field = draft["fields"][role]
             targets = [item for anchor in anchors for item in anchor["targets"] if item["role"] == role]

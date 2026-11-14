@@ -5,9 +5,9 @@ from decimal import Decimal
 import re
 import statistics
 
-from evidence import dated_targets
-from extract import NUTRIENT_PATTERN
-from knowledge import clause_line
+from labelreview.evidence import dated_targets
+from labelreview.extract import NUTRIENT_PATTERN
+from labelreview.knowledge import clause_line
 
 
 PART = re.compile(r"(?:^|[、,;(])\s*([\u4e00-\u9fff]{1,9}包)\s*(\d+(?:\.\d+)?)\s*(?:克|g)(?=[、,;).。]|$)", re.I)

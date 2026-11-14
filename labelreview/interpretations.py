@@ -18,7 +18,7 @@ import json
 import re
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def _source_index():
@@ -26,7 +26,7 @@ def _source_index():
 
     只读，不改动知识库文件。
     """
-    import knowledge
+    import labelreview.knowledge as knowledge
     found = {}
     for key, entry in INTERPRETATIONS.items():
         record = knowledge.clause(entry["documentId"], entry["clause"])

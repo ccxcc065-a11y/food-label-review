@@ -17,7 +17,7 @@ import re
 from datetime import date
 from decimal import Decimal
 
-from extract import MASS, MULTIPLIER, UNITS
+from labelreview.extract import MASS, MULTIPLIER, UNITS
 
 
 NET_LABEL = re.compile(r"净含量(?:及规格)?\s*[:：]?\s*[（(【]?\s*")

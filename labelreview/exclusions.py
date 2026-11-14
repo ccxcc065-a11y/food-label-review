@@ -16,10 +16,10 @@ import json
 import re
 from pathlib import Path
 
-from crosscheck import mass_of
-from extract import MASS
+from labelreview.crosscheck import mass_of
+from labelreview.extract import MASS
 
-ROOT = Path(__file__).resolve().with_name("knowledge")
+ROOT = Path(__file__).resolve().parent.parent / "knowledge"
 DEFINITIONS = ROOT / "exclusions.json"
 
 GROUPED_ADDITIVE = re.compile(r"食品添加剂\s*[（(]")
@@ -59,7 +59,7 @@ def _definitions():
 
 def _helpers():
     """配料名解析复用 audit.py 的口径，运行期再导入，避免模块循环引用。"""
-    from audit import ingredient_words, name_ingredient_hits
+    from labelreview.audit import ingredient_words, name_ingredient_hits
     return ingredient_words, name_ingredient_hits
 
 

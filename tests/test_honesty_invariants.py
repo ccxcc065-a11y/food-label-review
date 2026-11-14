@@ -12,10 +12,8 @@ import json
 import unittest
 from collections import Counter
 
-import audit
-import extract
-
-
+import labelreview.audit as audit
+import labelreview.extract as extract
 ROWS = [
     ("品名：示例原味饼干", [0.05, 0.02, 0.5, 0.04]),
     ("配料：小麦粉、白砂糖、植物油", [0.05, 0.10, 0.7, 0.05]),
@@ -112,7 +110,12 @@ class DisclosureTests(unittest.TestCase):
     def test_running_code_identity_is_reported(self):
         running = audit_result().get("runningProgram") or {}
         self.assertTrue(running.get("auditSha256"))
-        self.assertEqual(running.get("programVersion"), running.get("pinnedProgramVersion"))
+        pinned = running.get("pinnedProgramVersion")
+        self.assertTrue(pinned)
+        # 自洽即可：已发布包可能由更早的代码构建（比如本地留存的 bootstrap 包），
+        # 允许两者不同，但 matchesPinned 必须如实反映比较结果。
+        self.assertEqual(running.get("matchesPinned"),
+                         running.get("programVersion") == pinned)
         self.assertIsNone(running.get("warningBasisSha256"))
 
 

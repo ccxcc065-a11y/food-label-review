@@ -19,10 +19,8 @@ import threading
 import uuid
 from pathlib import Path
 
-import clause_index
-
-
-ROOT = Path(__file__).resolve().parent
+import labelreview.clause_index as clause_index
+ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_STORE = ROOT / "knowledge" / "registry"
 KNOWLEDGE_DIR = ROOT / "knowledge"
 
@@ -348,11 +346,11 @@ def _app_version():
     报告不可追溯，所以这里直接读源码里的常量。
     """
     try:
-        import server
+        import labelreview.server as server
         return getattr(server, "APP_VERSION", "") or ""
     except Exception:
         try:
-            source = (ROOT / "server.py").read_text(encoding="utf-8")
+            source = Path(__file__).with_name("server.py").read_text(encoding="utf-8")
         except OSError:
             return ""
         match = re.search(r'^APP_VERSION\s*=\s*["\']([^"\']+)["\']', source, re.M)
@@ -361,7 +359,7 @@ def _app_version():
 
 def _program_version():
     version = _app_version()
-    audit = ROOT / "audit.py"
+    audit = Path(__file__).with_name("audit.py")
     return {"appVersion": version, "auditSha256": _file_sha(audit),
             "programVersion": version + ("+" + _file_sha(audit)[:12] if audit.is_file() else "")}
 
@@ -385,8 +383,9 @@ JUDGEMENT_MODULES = ("audit.py", "audit_retrieval.py", "rule_registry.py", "regi
 def module_digests(names=JUDGEMENT_MODULES):
     """判定模块的 sha256 摘要表，用于在候选配置里冻结「跑的是哪一版代码」。"""
     digests = {}
+    package = Path(__file__).resolve().parent
     for name in names:
-        path = ROOT / name
+        path = package / name
         try:
             digests[name] = _file_sha(path)
         except OSError:
@@ -677,7 +676,7 @@ class Registry:
             entries = override
         else:
             try:
-                import interpretations
+                import labelreview.interpretations as interpretations
                 entries = interpretations.entries()
             except Exception:
                 entries = {}
@@ -1112,7 +1111,7 @@ class Registry:
         payload["context"] = context
         token = _ACTIVE_BUNDLE.set(bundle)
         try:
-            from audit import audit
+            from labelreview.audit import audit
             return audit(payload)
         finally:
             _ACTIVE_BUNDLE.reset(token)
@@ -1375,7 +1374,7 @@ def default_trial_sample():
                      "factQa": raw.get("factQa") or {}}
         elif pages:
             try:
-                from extract import extract
+                from labelreview.extract import extract
                 draft = extract({"pages": pages})
             except Exception:
                 draft = {"fields": {}, "nutrition": {}, "factQa": {}}

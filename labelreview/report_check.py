@@ -76,7 +76,7 @@ def _counts(report, plan):
 
 def _classification(report, plan):
     try:
-        import report_plan
+        import labelreview.report_plan as report_plan
         return report_plan.classify(_items(report, plan))
     except Exception:
         return None
