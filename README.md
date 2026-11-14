@@ -294,24 +294,7 @@ node --test tests/test_report.js                       # 11 tests
 └── tests/                # 25 个离线测试
 ```
 
-架构图见上文 [How it works](#how-it-works)。mermaid
-flowchart LR
-  A[标签照片] --> B[本地 OCR<br/>Apple Vision / RapidOCR]
-  B --> C[字段与证据抽取<br/>extract / evidence]
-  C --> D{判定层}
-  D --> E[营养算术复算<br/>nutrition_guard]
-  D --> F[91 检查点账本<br/>rule_registry]
-  D --> G[证据三态机<br/>evidence_checklist]
-  F --> H[条款检索 + 依据校验<br/>audit_retrieval]
-  G --> I[裁定集<br/>decision_set]
-  H --> I
-  I --> J[统一整改计划<br/>report_plan]
-  J --> K[HTML 渲染]
-  K --> L{成稿前检查<br/>html_check}
-  L -- 通过 --> M[保存成稿 + contentHash]
-  L -- 不通过 --> N[结构化错误，不写成稿]
-  M --> O[PDF：Chrome 打印 + pypdf 盖章]
-```
+架构图见上文 [How it works](#how-it-works)。
 
 ---
 
