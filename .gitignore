@@ -1,0 +1,14 @@
+# Local runtime state (reports, tasks, decisions, compiled OCR binary)
+.runtime/
+knowledge/registry/
+knowledge/documents/
+caches/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+.venv/
+venv/
+node_modules/
+*.log

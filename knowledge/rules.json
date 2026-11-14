@@ -1,0 +1,50 @@
+{
+  "2025": {
+    "TRANS7718": {"document": "gb7718-2025", "clause": "封面（发布日期与实施日期）", "pages": [1]},
+    "TRANS28050": {"document": "gb28050-2025", "clause": "封面（发布日期与实施日期）", "pages": [1],
+      "related": [{"document": "gb28050-2025-qa", "clause": "第六十七问（实施日期）", "paragraphs": [283, 284]}]},
+    "TRANS100": {"document": "samr100", "clause": "首页、第五十四条", "pages": [1, 15]},
+    "G01": {"document": "gb7718-2025", "clause": "4.1～4.3、4.6、4.8～4.10、10.3", "pages": [4, 5, 6, 9]},
+    "F04": {"document": "gb7718-2025", "clause": "4.7.1、4.7.2、10.1～10.3、附录 A.2", "pages": [6, 8, 9, 10]},
+    "G03": {"document": "gb7718-2025", "clause": "4.5", "pages": [5]},
+    "N01": {"document": "gb28050-2025", "clause": "4.1、7、附录 B", "pages": [5, 8, 11]},
+    "F01": {"document": "gb28050-2025", "clause": "4.1、7、附录 A.3.2", "pages": [5, 8, 10]},
+    "F02": {"document": "gb28050-2025", "clause": "4.5、7、附录 B", "pages": [5, 8, 11]},
+    "N02": {
+      "document": "gb28050-2025",
+      "clause": "附录 A.1、A.3",
+      "pages": [9, 10],
+      "related": [{"document": "gb28050-2025-qa", "clause": "第二十七问（数值修约）", "paragraphs": [118, 119]}]
+    },
+    "N03": {"document": "gb28050-2025", "clause": "2.3", "pages": [3]},
+    "C01": {"document": "gb7718-2025", "clause": "4.4.1、4.4.2、附录 A.5.4", "pages": [5, 12]},
+    "C02": {"document": "gb7718-2025", "clause": "4.4.1、4.4.1.2", "pages": [5],
+      "related": [{"document": "gb7718-2025-qa", "clause": "第三十五问（食品标签上图片的使用）", "paragraphs": [189, 190, 191, 192, 193]}]},
+    "F03": {"document": "gb7718-2025", "clause": "4.4.2.1、4.4.2.2、附录 A.5.3", "pages": [5, 11]},
+    "IMPORT2025": {"document": "gb7718-2025", "clause": "第 8 章", "pages": [7, 8]},
+    "GB7718AL": {"document": "gb7718-2025", "clause": "4.12、10.3、附录 D", "pages": [6, 9, 16],
+      "related": [{"document": "gb7718-2025-qa", "clause": "第三十八、三十九问（致敏物质标示与预防性提示）", "paragraphs": [207, 208, 209, 212, 213, 214]}]},
+    "SAMR100": {"document": "samr100", "clause": "第十二条至第十六条、第十九条至第二十条", "pages": [3, 4, 5, 6, 7]},
+    "A3": {"document": "gb7718-2025", "clause": "4.2.1、4.2.2", "pages": [4]},
+    "A4": {"document": "gb7718-2025", "clause": "4.8、附录 A.3", "pages": [6, 10]},
+    "B1A": {"document": "gb7718-2025", "clause": "4.1、4.6", "pages": [4, 5]},
+    "B1B": {"document": "gb7718-2025", "clause": "4.12.1、附录 D.2", "pages": [6, 16]},
+    "C2": {"document": "gb7718-2025", "clause": "4.7.1、附录 A.2", "pages": [6, 10]},
+    "R11": {"document": "gb7718-2025", "clause": "4.11", "pages": [6]},
+    "R15": {"document": "gb7718-2025", "clause": "4.15.1、4.15.2", "pages": [7]},
+    "R14": {"document": "gb7718-2025", "clause": "4.14", "pages": [7]}
+  },
+  "all": {
+    "LAW67": {"document": "food-safety-law", "clause": "第六十七条", "paragraphs": [184, 195]},
+    "LAW71": {"document": "food-safety-law", "clause": "第七十一条", "paragraphs": [199, 201]},
+    "ADV17": {"document": "advertising-law", "clause": "第十七条", "paragraphs": [61]},
+    "METRO": {"document": "metrology", "clause": "第五条至第七条、第十条", "paragraphs": [10, 15, 19]},
+    "IMPORT": {
+      "document": "food-safety-law",
+      "clause": "第九十七条",
+      "paragraphs": [255],
+      "related": [{"document": "import-food", "clause": "第三十条", "paragraphs": [80, 84]}]
+    },
+    "HEBEI": {"document": "hebei-workshop", "clause": "第二十四条、第六十六条", "pages": [5, 10]}
+  }
+}

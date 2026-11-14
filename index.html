@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="referrer" content="no-referrer">
+  <title>食品标签审核台</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/report.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="frame masthead">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M6 12V6h6m8 0h6v6m0 8v6h-6m-8 0H6v-6M11 12h10m-10 4h10m-10 4h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="square"/>
+        </svg>
+        <span>食品标签审核台</span>
+      </div>
+      <div class="header-actions">
+        <span class="local-label"><span aria-hidden="true"></span>本机运行</span>
+          <a class="quiet header-link" href="/admin">知识库与规则</a>
+          <button type="button" id="openKnowledge" class="quiet" aria-haspopup="dialog">查依据</button>
+        <button type="button" id="reset" class="quiet" hidden>新建审核</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="frame">
+    <input type="file" id="files" accept=".jpg,.jpeg,.jfif,.png,image/jpeg,image/png" multiple hidden>
+    <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+
+    <section id="home" aria-labelledby="homeTitle">
+      <div class="intro">
+        <h1 id="homeTitle">审核一份食品标签</h1>
+        <p>上传同一商品的包装图，校对识别字段，再查看审核结果与依据。</p>
+      </div>
+      <div class="intake">
+        <div id="dropArea" class="drop-area">
+          <svg class="upload-icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path d="M17 6h22l9 9v32H17zM38 6v10h10M12 14H8v42h33v-4M24 25h17M24 32h17M24 39h10" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M53 28v19m-9-10h18" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+          <h2>导入标签图</h2>
+          <p>可拖入正面、背面和喷码区的图片</p>
+          <button type="button" class="primary" data-upload>选择图片</button>
+          <p class="file-hint">JPG、JFIF、PNG · 单张最多 16 MB</p>
+        </div>
+        <div class="examples">
+          <div class="examples-head">
+            <h2>用样例试审</h2>
+            <p>直接用原始图片运行识别和审核。</p>
+          </div>
+          <ol id="samples" class="sample-list"></ol>
+        </div>
+      </div>
+      <div class="intake-note">
+        <strong>适用范围</strong>
+        <span>按指定知识库逐项审核。专项食品及依据不足的项目会单独提示。</span>
+      </div>
+    </section>
+
+    <section id="workspace" aria-labelledby="caseTitle" hidden>
+      <div class="case-header">
+        <div class="case-info">
+          <p class="eyebrow">正在审核</p>
+          <h1 id="caseTitle">未命名标签</h1>
+          <p id="caseMeta" class="meta-text"></p>
+        </div>
+        <div class="case-actions">
+          <button type="button" class="quiet" data-upload>添加标签图</button>
+          <button type="button" id="report" class="quiet" disabled>查看报告</button>
+          <button type="button" id="downloadReport" class="quiet" disabled>下载 HTML</button>
+          <button type="button" id="downloadPdf" class="quiet" disabled>下载 PDF</button>
+        </div>
+      </div>
+
+      <div class="work-grid">
+        <section class="viewer" aria-labelledby="viewerTitle">
+          <div class="panel-head">
+            <h2 id="viewerTitle">标签原图</h2>
+            <div class="zoom-controls" aria-label="图像缩放">
+              <button type="button" id="zoomOut" aria-label="缩小">−</button>
+              <button type="button" id="zoomReset" aria-label="适应窗口">适应</button>
+              <button type="button" id="zoomIn" aria-label="放大">+</button>
+            </div>
+          </div>
+          <div id="imageTabs" class="image-tabs" aria-label="已上传图片"></div>
+          <div class="photo-viewport" id="canvasViewport" tabindex="0" aria-label="标签图浏览区，可滚动">
+            <div class="photo-stage" id="photoStage">
+              <img id="previewImage" alt="">
+              <div id="evidenceBox" class="evidence-box" hidden></div>
+            </div>
+          </div>
+          <div class="viewer-caption" id="viewerCaption" aria-live="polite">点击右侧的证据可定位到原图。</div>
+          <details class="photo-coverage" id="photoCoverage">
+            <summary>记录本张图拍到的区域</summary>
+            <div id="coverageControls"></div>
+          </details>
+          <div class="photo-tools">
+            <button type="button" id="reviewEvidence" class="quiet" disabled>复核选中证据</button>
+            <button type="button" id="removeImage" class="quiet">移除本张图</button>
+          </div>
+        </section>
+
+        <section class="review" aria-label="审核操作">
+          <div class="section-switch" aria-label="审核面板">
+            <button type="button" id="resultsMode" aria-pressed="true">审核结果</button>
+            <button type="button" id="fieldsMode" aria-pressed="false">校对识别</button>
+            <button type="button" id="audit" class="primary run-audit">重新审核</button>
+          </div>
+          <details id="settings" class="settings">
+            <summary>
+              <span>审核设置</span>
+              <span id="settingsStatus" class="settings-status"></span>
+            </summary>
+            <fieldset id="contextControls">
+              <legend class="sr-only">选择审核情景</legend>
+              <div class="form-grid">
+                <label>审核对象
+                  <select id="sampleKind">
+                    <option value="unknown">由原图线索判断</option>
+                    <option value="artwork">设计稿（刀版图）</option>
+                    <option value="physical">实物包装</option>
+                  </select>
+                </label>
+                <label>食品范围
+                  <select id="scope">
+                    <option value="unknown">待确认</option>
+                    <option value="regular">国产普通预包装</option>
+                    <option value="imported">进口预包装</option>
+                    <option value="workshop">食品小作坊</option>
+                    <option value="other">其他或特殊食品</option>
+                  </select>
+                </label>
+                <label id="productionDateLabel">实际生产日期
+                  <input type="date" id="productionDate">
+                </label>
+                <label id="plannedProductionDateLabel" hidden>计划投产日期（设计稿）
+                  <input type="date" id="plannedProductionDate">
+                </label>
+                <label>营养标签
+                  <select id="nutritionRequired">
+                    <option value="unknown">待确认是否豁免</option>
+                    <option value="required">确认需要标示</option>
+                    <option value="exempt">确认符合豁免条件</option>
+                  </select>
+                </label>
+              </div>
+              <p class="field-note">预包装食品按指定知识库中的 GB 7718-2025、GB 28050-2025 审核。</p>
+              <label class="check"><input type="checkbox" id="verified">照片属于同一销售包装，已核对原图读数与所记录区域</label>
+              <details><summary>记录配方与整版核验结果</summary>
+                <p class="field-note">对照原图和材料后填写，填写内容会作为报告判断依据。修改识别值或图片后需要重新核验。</p>
+                <label class="check"><input id="layoutReviewed" type="checkbox">已核对完整销售版面及适用的补充标示载体</label>
+                <label>整版核验记录<textarea id="layoutReviewBasis" maxlength="1000" placeholder="记录稿件版本、核对的展示面和具体标示位置"></textarea></label>
+                <label>骨汤声称的稿件判断
+                  <select id="boneArtworkReview">
+                    <option value="unknown">尚未确认稿件缺少对应标示</option>
+                    <option value="unsubstantiated">整版确认实际用料或工艺声称缺少对应标示</option>
+                  </select>
+                </label>
+                <label>骨汤声称核验
+                  <select id="boneClaimEvidence">
+                    <option value="unknown">尚未取得完整核验材料</option>
+                    <option value="unsupported">完整配方、供应商规格和工艺均证实声称无支撑</option>
+                    <option value="supported">已证实声称对应的实际原料或工艺</option>
+                    <option value="flavor">已确认只描述风味，需核对图案条件</option>
+                  </select>
+                </label>
+                <label>骨汤核验材料与事实<textarea id="boneClaimBasis" maxlength="2000" placeholder="填写材料名称、版本及核验事实"></textarea></label>
+                <p class="field-note">致敏物质逐类核验。确认遗漏前，请核对配料内的加粗或下划线、邻近提示及适用例外。</p>
+                <div class="form-grid" id="allergenChecks"></div>
+              </details>
+            </fieldset>
+          </details>
+          <div id="results" aria-label="结果清单">
+            <div id="resultSummary" class="result-summary" aria-live="polite"></div>
+            <div id="resultEvidence" class="result-evidence"></div>
+            <div id="groups" class="group-switch" aria-label="筛选审核结果"></div>
+            <div id="items" class="items"></div>
+          </div>
+          <div id="fieldEditor" hidden></div>
+          <details id="agentPanel" class="settings">
+            <summary>AI 审核、撰稿与复核建议</summary>
+            <p class="field-note">发送当前标签文字、校对字段和指定知识库依据到已配置的 DeepSeek 模型。三个角色依次处理，候选建议需对照原图与依据核验。</p>
+            <button type="button" id="runAgents" class="quiet">发送文字并运行三角色复核</button>
+            <div id="agentOutput" aria-live="polite"></div>
+          </details>
+        </section>
+      </div>
+      <footer class="workspace-foot">标签初审 · 结果基于已提供图片、校对值与所选审核口径</footer>
+    </section>
+  </main>
+  <dialog id="knowledgeDialog" aria-labelledby="knowledgeTitle">
+    <div class="dialog-head">
+      <h2 id="knowledgeTitle">查阅审核依据</h2>
+      <form method="dialog"><button type="submit" class="quiet">关闭</button></form>
+    </div>
+    <form id="knowledgeForm" class="knowledge-form">
+      <input type="search" id="knowledgeQuery" required maxlength="120" aria-label="标准号、条款号或关键词" placeholder="例如 GB 28050、净含量">
+      <button type="submit" class="primary">查询</button>
+    </form>
+    <div id="knowledgeResults" class="knowledge-results" aria-live="polite"></div>
+  </dialog>
+  <dialog id="reviewDialog" aria-labelledby="reviewTitle">
+    <div class="dialog-head">
+      <h2 id="reviewTitle">证据复核</h2>
+      <form method="dialog"><button type="submit" class="quiet">关闭</button></form>
+    </div>
+    <p id="reviewCaption" class="field-note"></p>
+    <img id="reviewCrop" alt="待复读的证据区域">
+    <div class="review-actions">
+      <button type="button" id="reviewLocal" class="quiet">本机 OCR 复读</button>
+      <button type="button" id="reviewSend" class="primary">发送裁切并 AI 复核</button>
+    </div>
+    <p id="reviewAvailability" class="field-note">AI 复核会将上方裁切发送至已配置服务。复核结果仅供校对，是否更正由你确认。</p>
+    <div id="reviewOutput" class="review-output" aria-live="polite"></div>
+  </dialog>
+</body>
+</html>

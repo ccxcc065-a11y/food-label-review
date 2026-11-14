@@ -1,0 +1,3233 @@
+{
+  "_comment": "Machine-readable copy of 应查项对照表.md. The markdown file is the source of truth; regenerate this file from that table (see rule_registry.load_checkpoints). Do not invent clause numbers here.",
+  "source": "docs/应查项对照表.md",
+  "sourceRelative": "docs/应查项对照表.md",
+  "generatedAt": "2026-11-14T15:32:01+08:00",
+  "count": 91,
+  "themes": [
+    {
+      "themeId": 0,
+      "theme": "版本适用",
+      "title": "版本适用（先行条件）"
+    },
+    {
+      "themeId": 1,
+      "theme": "主题 1",
+      "title": "产品归属、包装层级与设计稿／实物范围"
+    },
+    {
+      "themeId": 2,
+      "theme": "主题 2",
+      "title": "食品名称与属性"
+    },
+    {
+      "themeId": 3,
+      "theme": "主题 3",
+      "title": "配料、复合配料、顺序与分包"
+    },
+    {
+      "themeId": 4,
+      "theme": "主题 4",
+      "title": "添加剂名称与对应材料"
+    },
+    {
+      "themeId": 5,
+      "theme": "主题 5",
+      "title": "定量标示与强调声称"
+    },
+    {
+      "themeId": 6,
+      "theme": "主题 6",
+      "title": "净含量、单位与版面"
+    },
+    {
+      "themeId": 7,
+      "theme": "主题 7",
+      "title": "主体、地址及相关标识"
+    },
+    {
+      "themeId": 8,
+      "theme": "主题 8",
+      "title": "日期、保质期、位置引用"
+    },
+    {
+      "themeId": 9,
+      "theme": "主题 9",
+      "title": "贮存和食用方法"
+    },
+    {
+      "themeId": 10,
+      "theme": "主题 10",
+      "title": "致敏物质与强调方式"
+    },
+    {
+      "themeId": 11,
+      "theme": "主题 11",
+      "title": "营养项目、单位与计量基准"
+    },
+    {
+      "themeId": 12,
+      "theme": "主题 12",
+      "title": "NRV、修约和能量复算"
+    },
+    {
+      "themeId": 13,
+      "theme": "主题 13",
+      "title": "营养声称及提示语"
+    },
+    {
+      "themeId": 14,
+      "theme": "主题 14",
+      "title": "产地、进口等条件项"
+    },
+    {
+      "themeId": 15,
+      "theme": "主题 15",
+      "title": "图文声称与标签事实一致性"
+    },
+    {
+      "themeId": 16,
+      "theme": "主题 16",
+      "title": "跨图冲突和稿件内部一致性"
+    }
+  ],
+  "checkpoints": [
+    {
+      "checkpointId": "CP-00-01",
+      "title": "判定本次审核适用的标准与办法实施日期",
+      "themeId": 0,
+      "theme": "版本适用（先行条件）",
+      "themeLabel": "版本适用",
+      "authorizedBasis": "已登记：GB 7718-2025 封面（发布与实施日期）；GB 28050-2025 封面；《食品标识监督管理办法》首页、第五十四条。相关问答已登记 GB 28050-2025 问答第六十七问（实施日期）。实施日期在清单中记为 2027-03-16。",
+      "appliesWhen": "凡启动审核，生产日期或拟投产日期未知时不得自行推定版本",
+      "executionText": "程序（日期已知时引用封面日期）；否则人工确认。不得用拍照时间、计算机时钟或文件名决定版本",
+      "ruleCell": "TRANS7718、TRANS28050、TRANS100",
+      "ruleIds": [
+        "TRANS7718",
+        "TRANS28050",
+        "TRANS100"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有规则登记和适用性函数；尚无按人工真值封存的版本判定验收。不得把旧「2011 当前 / 2025 预检」卡片数当答案",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-01-01",
+      "title": "多图产品归属：已确认同品 / 归属待确认 / 归属冲突",
+      "themeId": 1,
+      "theme": "产品归属、包装层级与设计稿／实物范围",
+      "themeLabel": "主题 1",
+      "authorizedBasis": "无已登记的「合并多图」条款。冲突处理不得绕过未解除的强冲突（方案 4.3）",
+      "appliesWhen": "一次提交多于一张图，或需要把多页拼成同一销售单元",
+      "executionText": "程序有既有归属结果（`fact_qa.blocking_state` 仍沿用旧 `attribution_for`）；混图算法尚未按字段含义和包装层级改写。待确认时不得拼成已确认产品结论",
+      "ruleCell": "无独立规则 ID（归属逻辑）",
+      "ruleIds": [],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T07 未做。T08：工作副本有实现说明，业务验收未做。demos 中锅巴正反面、米线等仅列为待标注样本，不得预填真值",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-01-02",
+      "title": "先区分包装层级再比字段：整包与料包、外包与内包",
+      "themeId": 1,
+      "theme": "产品归属、包装层级与设计稿／实物范围",
+      "themeLabel": "主题 1",
+      "authorizedBasis": "无单独已登记条款。净含量、配料分包相关依据见主题 3、6",
+      "appliesWhen": "出现多分装、料包或内外包装信息",
+      "executionText": "程序尚未按新口径改写；商标名与属性名、整包与分包净含量、不同角色 SC 号仍可能被旧逻辑直接当成同字段冲突",
+      "ruleCell": "G03、I01（非本包已发布规则 ID）、M06（只覆盖部分净含量／料包现象）",
+      "ruleIds": [
+        "G03",
+        "I01",
+        "M06"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "无包装层级真值；T08「合法不同 SC 不误拦」：工作副本有实现说明，业务验收未做",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit"
+        ],
+        "issue": [
+          "value",
+          "unit"
+        ],
+        "review": [
+          "value"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-01-03",
+      "title": "标明设计稿或实物范围；设计稿日期不能当成已核验的上市批次日期",
+      "themeId": 1,
+      "theme": "产品归属、包装层级与设计稿／实物范围",
+      "themeLabel": "主题 1",
+      "authorizedBasis": "无已登记条款号。项目既有说明要求设计稿必须注明，但不能据此发明新的标准条号",
+      "appliesWhen": "输入为设计稿、打样稿或未喷码实物图",
+      "executionText": "人工说明为主；程序未见强制的「设计稿／实物」标记及其失效规则",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "待标注时由人填写稿件类型；无现成验收",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-01-04",
+      "title": "标示状态保持已标／未标／无法识别。未标须有相关版面覆盖且可读；OCR 未返回文字不得直接判未标",
+      "themeId": 1,
+      "theme": "产品归属、包装层级与设计稿／实物范围",
+      "themeLabel": "主题 1",
+      "authorizedBasis": "无单独条款号；与 GB 7718-2025 一般标示是否「可见」的执行方式相关（见 G01 的实现说明）",
+      "appliesWhen": "任一应标项目需要给出有／无结论",
+      "executionText": "日期定位有「无法识别」写法；全面按版面覆盖判断的三态尚未做成（T06：工作副本有实现说明，业务验收未做）",
+      "ruleCell": "G01、F04（部分）",
+      "ruleIds": [
+        "G01",
+        "F04"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T06：工作副本有实现说明，业务验收未做；清晰／模糊变体需人工真值后才可验",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-01-05",
+      "title": "印前工单或制作表头不计入销售包装标签",
+      "themeId": 1,
+      "theme": "产品归属、包装层级与设计稿／实物范围",
+      "themeLabel": "主题 1",
+      "authorizedBasis": "已登记解释：GB 7718-2025 3.1 / 2.2（预包装食品标签的审核对象界定）。出处：`knowledge/exclusions.json` 的 `job-ticket-not-label`",
+      "appliesWhen": "图上出现成品尺寸、印刷方式、色序等制作表头，并可能与版面净含量不一致",
+      "executionText": "程序有排除解释模板；是否每次都能把表头与标签正文拆开，仍要看版面和人工核对",
+      "ruleCell": "排除项 `job-ticket-not-label`",
+      "ruleIds": [
+        "job-ticket-not-label"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有解释模板，无独立封存样本。不得用旧报告是否写过该解释当真值",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-02-01",
+      "title": "食品名称在提交图中可见",
+      "themeId": 2,
+      "theme": "食品名称与属性",
+      "themeLabel": "主题 2",
+      "authorizedBasis": "已登记：GB 7718-2025 4.1、4.2（G01）；覆盖表 4.1、4.2",
+      "appliesWhen": "国产普通预包装，按 2025 版审核；小包装简化标示适用性未知时不得直接报缺",
+      "executionText": "程序检查名称字段是否出现；未见不等于包装未标，通常待核",
+      "ruleCell": "G01",
+      "ruleIds": [
+        "G01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有一般项目检查。demos 名称待人工标注，不预填",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-02-02",
+      "title": "名称含配料词时与配料表一致",
+      "themeId": 2,
+      "theme": "食品名称与属性",
+      "themeLabel": "主题 2",
+      "authorizedBasis": "已登记：GB 7718-2025 4.2.1、4.2.2（A3）；覆盖表 4.2",
+      "appliesWhen": "名称出现配料或成分词",
+      "executionText": "程序做名称与配料词比对；例外和真实属性判断需人工",
+      "ruleCell": "A3",
+      "ruleIds": [
+        "A3"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有构造用例（如 `test_v18.py`），无本轮封存真值",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-02-03",
+      "title": "新创名称应邻近标示属性名；属性名与其他名称的字高、字体、颜色和位置",
+      "themeId": 2,
+      "theme": "食品名称与属性",
+      "themeLabel": "主题 2",
+      "authorizedBasis": "已登记：GB 7718-2025 4.2.1、4.2.2（A3）。字号和位置判断按方案 6.3 需要可比较版面；涉及物理尺寸时还需要矢量稿或可核验尺度",
+      "appliesWhen": "同一展示版面出现属性名称与其他名称",
+      "executionText": "程序有产品名称检查；方向不得写反已作为实现要求。完整字号／颜色核验在无矢量稿时只能待核",
+      "ruleCell": "A3",
+      "ruleIds": [
+        "A3"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "无字号真值测量集",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-02-04",
+      "title": "名称中的地名或风味词是否反映真实属性、是否可能误导",
+      "themeId": 2,
+      "theme": "食品名称与属性",
+      "themeLabel": "主题 2",
+      "authorizedBasis": "已登记可引用：《食品标识监督管理办法》第十六条（出现在 `knowledge/review_notes.json` 的地名审核笔记，不是一条自动规则）。《地理标志产品保护办法》在授权库中，但**无已登记条款号**，本检查点不得编造该办法条号",
+      "appliesWhen": "名称含地名、产地风味或类似用语",
+      "executionText": "以人工和笔记模板为主，不是独立自动规则",
+      "ruleCell": "SAMR100（办法已被登记为规则族，本条号仅出现在审核笔记中）；地理标志办法无登记条款",
+      "ruleIds": [
+        "SAMR100"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注；不得把旧报告对地名的写法当标准答案",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-01",
+      "title": "配料表在提交图中可见",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "已登记：GB 7718-2025 4.1、4.3（G01）；覆盖表 4.3",
+      "appliesWhen": "普通预包装；简化标示适用性未知时不得直接报缺",
+      "executionText": "程序检查配料字段是否出现",
+      "ruleCell": "G01",
+      "ruleIds": [
+        "G01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有一般项目检查；配料原文待人工标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-02",
+      "title": "配料按加入量递减排列；加入量不超过 2% 的豁免只作用于包内配料",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "GB 7718-2025 4.3.2（工作副本 `consistency.py` 的 I01 引用；I01 为非本包已发布规则 ID）。覆盖表 4.3 把递减顺序列为已实现，但真实投料顺序无法仅凭标签自动证实",
+      "appliesWhen": "已提取配料表",
+      "executionText": "程序不能验证真实加入量，排序真实性在既有范围说明中列为未自动覆盖；需要投料记录时必须待核",
+      "ruleCell": "覆盖表写 I01、I04（均为非本包已发布规则 ID）、M02、M03；递减顺序的确定结论实际依赖材料",
+      "ruleIds": [
+        "I01",
+        "I04",
+        "M02",
+        "M03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "无投料真值。不得因旧报告未报顺序问题就记通过",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-03",
+      "title": "配料分隔符完整、清晰",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "GB 7718-2025 4.3.3（工作副本／RULE_CATALOG 的 I04 引用；I04 为非本包已发布规则 ID）",
+      "appliesWhen": "已定位配料文字",
+      "executionText": "程序核对接在复合配料括号后的分隔符；看不清则待核，不升为确定违法",
+      "ruleCell": "I04（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I04"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有一致性检查的构造逻辑；待用真实标签标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-04",
+      "title": "复合配料是否需要展开",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "覆盖表 4.3 将复合配料展开列为已实现，并关联 M03。`RULE_CATALOG` 中 M03 的判断是「列待核」，需要复合配料规格和比例。**无更细的已登记展开门槛条号**（不得自行补「超过 25% 必须展开」之类未登记条文）",
+      "appliesWhen": "配料表使用复合配料描述",
+      "executionText": "程序将常见复合描述列为待核，不能自动下确定展开结论",
+      "ruleCell": "M03",
+      "ruleIds": [
+        "M03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "只能验收「该待核是否出现」，不能用猜测的展开清单当金标准",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-05",
+      "title": "分包装列示时，包与包的顺序不得用包内 2% 豁免解释倒置",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "GB 7718-2025 4.3.2（工作副本 I01 已写明该限制；I01 为非本包已发布规则 ID）",
+      "appliesWhen": "净含量明细与配料表均列出多个料包",
+      "executionText": "程序比较料包重量列示顺序与配料排版顺序",
+      "ruleCell": "I01（非本包已发布规则 ID）、M06（M06 为各料包内递减，缺投料则待核）",
+      "ruleIds": [
+        "I01",
+        "M06"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "依赖能同时读到料包名和重量的样本；demos 待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-06",
+      "title": "允许按归类名称标示的配料，不因此判缺项",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "已登记解释：GB 7718-2025 附录 A.4（`category-name-allowed`）",
+      "appliesWhen": "出现植物油、淀粉、糖、食用香精等归类名称",
+      "executionText": "解释模板可用；自动识别哪些词属于附录 A.4 允许归类，覆盖不完整",
+      "ruleCell": "排除项 `category-name-allowed`",
+      "ruleIds": [
+        "category-name-allowed"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有模板，无封存正例集",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-03-07",
+      "title": "同一标签添加剂标示形式应只选一种",
+      "themeId": 3,
+      "theme": "配料、复合配料、顺序与分包",
+      "themeLabel": "主题 3",
+      "authorizedBasis": "已登记解释：GB 7718-2025 4.3.4.2、附录 B（B.1、B.2、B.5）（`additive-two-forms`）",
+      "appliesWhen": "配料表同时出现归类列示和直接列出通用名称",
+      "executionText": "有解释模板；是否稳定触发取决于配料解析",
+      "ruleCell": "排除项 `additive-two-forms`；与主题 4 共用",
+      "ruleIds": [
+        "additive-two-forms"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待真实配料样本核定",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-04-01",
+      "title": "添加剂标示形式统一",
+      "themeId": 4,
+      "theme": "添加剂名称与对应材料",
+      "themeLabel": "主题 4",
+      "authorizedBasis": "同 CP-03-07：GB 7718-2025 4.3.4.2、附录 B",
+      "appliesWhen": "配料表出现食品添加剂",
+      "executionText": "同 CP-03-07",
+      "ruleCell": "`additive-two-forms`",
+      "ruleIds": [
+        "additive-two-forms"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "同 CP-03-07",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-04-02",
+      "title": "添加剂使用条件与用量是否符合相应标准",
+      "themeId": 4,
+      "theme": "添加剂名称与对应材料",
+      "themeLabel": "主题 4",
+      "authorizedBasis": "授权库**有** GB 2760-2024（PDF 与 Word）。M02 只把常见添加剂名称列为待核，**knowledge/rules.json 未登记 GB 2760 的具体条款号**，本表不编造最大使用量或食品分类条号",
+      "appliesWhen": "配料表出现食品添加剂",
+      "executionText": "程序待核 + 人工；不能仅凭名称确认用量或范围，也不能输出「已按 2760 判定合规」",
+      "ruleCell": "M02",
+      "ruleIds": [
+        "M02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "无配方／分类／用量真值，不得用旧报告待核条数当答案",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-04-03",
+      "title": "营养强化剂是否在已登记依据下可审",
+      "themeId": 4,
+      "theme": "添加剂名称与对应材料",
+      "themeLabel": "主题 4",
+      "authorizedBasis": "授权库**有** GB 14880-2012。既有范围说明将营养强化剂合规列为未自动覆盖。**无已登记条款号**",
+      "appliesWhen": "配料或营养表出现强化剂线索",
+      "executionText": "未实现自动审核；应显示未覆盖并转人工。不得编造 14880 条号后假装已检",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "human",
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "无样本真值；有强化剂的标签须人工标注后再验「未覆盖」是否如实显示",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-05-01",
+      "title": "特别强调的配料或成分应定量标示",
+      "themeId": 5,
+      "theme": "定量标示与强调声称",
+      "themeLabel": "主题 5",
+      "authorizedBasis": "已登记：GB 7718-2025 4.4.1、4.4.2、附录 A.5.4（C01）；覆盖表 4.4",
+      "appliesWhen": "名称、图案或文字构成特别强调",
+      "executionText": "程序用关键词触发复核，不能只靠关键词定论；例外和配方需人工",
+      "ruleCell": "C01",
+      "ruleIds": [
+        "C01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注强调部位和是否已定量",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-05-02",
+      "title": "名称中提及配料的定量义务及属性名称例外",
+      "themeId": 5,
+      "theme": "定量标示与强调声称",
+      "themeLabel": "主题 5",
+      "authorizedBasis": "已登记解释：GB 7718-2025 4.4.1.1、4.2.1、问答第三十四（`name-mention-no-emphasis`）",
+      "appliesWhen": "名称出现配料词",
+      "executionText": "有例外解释模板；是否属「反映真实属性的名称本身」须人工核定",
+      "ruleCell": "C01；排除项 `name-mention-no-emphasis`",
+      "ruleIds": [
+        "name-mention-no-emphasis",
+        "C01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待人工判定该词是属性名还是原料强调",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-05-03",
+      "title": "无特别强调时，不因此施加定量义务",
+      "themeId": 5,
+      "theme": "定量标示与强调声称",
+      "themeLabel": "主题 5",
+      "authorizedBasis": "已登记解释：GB 7718-2025 4.4.1.2（`no-quantity-claim`）",
+      "appliesWhen": "全文无添加量、含量或特别强调",
+      "executionText": "有「无定量声称」解释；漏检强调会造成假阴性，须对照人工真值",
+      "ruleCell": "排除项 `no-quantity-claim`",
+      "ruleIds": [
+        "no-quantity-claim"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "正例／反例均待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-05-04",
+      "title": "「无」「不含」「不添加」等用语",
+      "themeId": 5,
+      "theme": "定量标示与强调声称",
+      "themeLabel": "主题 5",
+      "authorizedBasis": "已登记：GB 7718-2025 4.4.2.1、4.4.2.2、附录 A.5.3（F03）",
+      "appliesWhen": "标签出现该类用语",
+      "executionText": "程序识别线索；不得把合法营养声称或允许用语一律禁止，须按 4.4.2 核对",
+      "ruleCell": "F03",
+      "ruleIds": [
+        "F03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待区分合法声称与需整改用语；无封存真值",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-06-01",
+      "title": "净含量是否标示",
+      "themeId": 6,
+      "theme": "净含量、单位与版面",
+      "themeLabel": "主题 6",
+      "authorizedBasis": "已登记（现行发布包 `rules-11d4247b96e03da8`）：GB 7718-2025 4.5（G03，页码 [5]）；覆盖表 4.5 为部分。覆盖表已写明：附录 A.1 的标题是「概述」，不是净含量专章，不得再作为 G03 或净含量依据。根目录旧说明还把《食品标识监督管理办法》第十九、二十条写进 2025 版 G03，或以附录 A.1 为净含量依据，均不以旧文件或根目录旧 `rules.json` 为准。SAMR 第十九、二十条已在 SAMR100 规则族登记（第十二条至第十六条、第十九条至第二十条）",
+      "appliesWhen": "普通预包装",
+      "executionText": "程序检查净含量文字是否可见；未见则待核",
+      "ruleCell": "G03、SAMR100（办法相关条已登记到规则族，不自动等于本检查已按十九条判定）",
+      "ruleIds": [
+        "G03",
+        "SAMR100"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注净含量原文和包装层级",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit"
+        ],
+        "issue": [
+          "value",
+          "unit"
+        ],
+        "review": [
+          "value"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-06-02",
+      "title": "组合装规格；整包与分包重量不得当成同一字段冲突",
+      "themeId": 6,
+      "theme": "净含量、单位与版面",
+      "themeLabel": "主题 6",
+      "authorizedBasis": "已登记主题依据同 4.5。具体「不得跨层级比」是方案 4.3 的事实组织要求",
+      "appliesWhen": "组合装、多料包或同时出现整包与分包重量",
+      "executionText": "程序对同范围同单位才做有限验算；跨层级冲突尚未按新口径改写",
+      "ruleCell": "G03",
+      "ruleIds": [
+        "G03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T08 相关场景：工作副本有实现说明，业务验收未做",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit"
+        ],
+        "issue": [
+          "value",
+          "unit"
+        ],
+        "review": [
+          "value"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-06-03",
+      "title": "法定计量单位选用",
+      "themeId": 6,
+      "theme": "净含量、单位与版面",
+      "themeLabel": "主题 6",
+      "authorizedBasis": "已登记：定量包装商品计量监督管理办法第五条至第七条、第十条（METRO）。授权库另有该办法附件 1「法定计量单位的选择」，**附件 1 本身无已登记条号映射到规则**",
+      "appliesWhen": "已标示净含量",
+      "executionText": "程序识别常见单位写法；图像无法完成计量判定时列为核实",
+      "ruleCell": "METRO、G03",
+      "ruleIds": [
+        "METRO",
+        "G03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "单位对错须对照原图标注；不得发明附件条款",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit"
+        ],
+        "issue": [
+          "value",
+          "unit"
+        ],
+        "review": [
+          "value"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-06-04",
+      "title": "净含量字符高度",
+      "themeId": 6,
+      "theme": "净含量、单位与版面",
+      "themeLabel": "主题 6",
+      "authorizedBasis": "覆盖表 4.5 注明「字符高度需矢量稿，只能提示核对」。M04 判断为无成品尺度则待核。授权库有办法附件 2「标注字符高度」，**无已登记的具体尺寸表条号**，不在本表编造毫米阈值",
+      "appliesWhen": "已定位净含量",
+      "executionText": "程序待核；不能只靠 OCR 文本下确定不合格结论",
+      "ruleCell": "M04",
+      "ruleIds": [
+        "M04"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "无矢量稿或实物测量真值则不能验收确定问题",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit"
+        ],
+        "issue": [
+          "value",
+          "unit"
+        ],
+        "review": [
+          "value"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-06-05",
+      "title": "净含量短缺量等计量监督要求",
+      "themeId": 6,
+      "theme": "净含量、单位与版面",
+      "themeLabel": "主题 6",
+      "authorizedBasis": "授权库有办法附件 3「允许短缺量」。METRO 规则说明图像无法完成计量判定。**无已登记的短缺量表条号**",
+      "appliesWhen": "涉及实际含量与标示量比较",
+      "executionText": "未实现自动计量判定；应保持核实／未覆盖，不得把图像估算当短缺量结论",
+      "ruleCell": "METRO（仅到办法第五至七、十条的登记范围）",
+      "ruleIds": [
+        "METRO"
+      ],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "无称重真值；本轮不把短缺量自动判定列入已覆盖",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit"
+        ],
+        "issue": [
+          "value",
+          "unit"
+        ],
+        "review": [
+          "value"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-01",
+      "title": "生产者或经营者的名称、地址和联系方式是否完整可见",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "已登记：GB 7718-2025 4.1、4.6（G01、B1A）；覆盖表 4.6",
+      "appliesWhen": "国产普通预包装；委托、集团生产等组合不得机械要求同时出现全部角色",
+      "executionText": "程序检查可见性和完整性，缺项待核",
+      "ruleCell": "G01、B1A",
+      "ruleIds": [
+        "G01",
+        "B1A"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注各角色及地址原文",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-02",
+      "title": "食品生产许可证编号是否标示",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "已登记：GB 7718-2025 4.9（覆盖表）。工作副本的 I02 亦引用 4.9，但 I02 为非本包已发布规则 ID。许可证真伪核验在既有范围说明中列为未自动覆盖",
+      "appliesWhen": "适用生产许可的国产食品；进口路径见主题 14",
+      "executionText": "程序检查文字线索，不做许可数据库核验",
+      "ruleCell": "G01、I02（非本包已发布规则 ID）",
+      "ruleIds": [
+        "G01",
+        "I02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注编号和主体角色；不得把「读到 SC 号」当成许可真实",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-03",
+      "title": "产品标准代号是否标示；企标适用性不能仅凭代号认定",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "已登记：GB 7718-2025 4.10（覆盖表，关联 M01）。年号未写不能单独报缺，已见于既有实现说明",
+      "appliesWhen": "普通预包装",
+      "executionText": "程序检查代号是否可见；代号以 Q/ 开头时 M01 列待核，不能认定标准适用",
+      "ruleCell": "G01、M01",
+      "ruleIds": [
+        "G01",
+        "M01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注代号原文；无标准全文则不能验收适用性结论",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-04",
+      "title": "执行标准规定质量（品质）等级时是否标示，未规定时是否误标",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "已登记：GB 7718-2025 4.11（R11）。确定结论只对 `knowledge/grades.json` 清单内的标准作出（现有：GB/T 1355、GB 1355、GB/T 1354、GB/T 18186、GB/T 18187、GB/T 1534、GB/T 1535）。清单外不得自行补等级标准",
+      "appliesWhen": "标签或产品标准涉及等级，或执行标准在上述清单内",
+      "executionText": "程序按清单判断；无法确认则待核。覆盖表注明六款样例均未使用分级标准，由构造用例覆盖",
+      "ruleCell": "R11",
+      "ruleIds": [
+        "R11"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有构造用例；真实等级标签待标注。不得把「样例未触发」写成已全面覆盖",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-05",
+      "title": "同一标签多处许可证用语应一致",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "已登记条款号仍为 GB 7718-2025 4.9、3.2（工作副本 I02 引用；I02 为非本包已发布规则 ID）",
+      "appliesWhen": "同一稿出现多处许可证编号用语",
+      "executionText": "程序检出「食品许可证」与「食品生产许可证」混用等有限情形",
+      "ruleCell": "I02（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "依赖特定版式；待更多样本",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-06",
+      "title": "不同角色（生产者、委托方、受委托方等）的 SC 号不得直接当成同一字段冲突",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "无单独已登记条款。这是方案 4.3 的字段语义要求",
+      "appliesWhen": "标签出现多个主体及编号",
+      "executionText": "混图／冲突算法尚未按该口径改写",
+      "ruleCell": "无独立规则 ID",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "T08：工作副本有实现说明，业务验收未做",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-07-07",
+      "title": "许可证真伪、执行标准是否真正适用",
+      "themeId": 7,
+      "theme": "主体、地址及相关标识",
+      "themeLabel": "主题 7",
+      "authorizedBasis": "既有范围说明列为未自动覆盖。授权库有《食品生产许可管理办法》，**无已登记条款号**映射到自动检查",
+      "appliesWhen": "需要对外给出许可或标准适用结论时",
+      "executionText": "未实现；应保持未覆盖或待核，不得输出确定通过",
+      "ruleCell": "M01（仅企标待核）",
+      "ruleIds": [
+        "M01"
+      ],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "无外部核验证据源",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-08-01",
+      "title": "生产日期与保质期到期日等日期标示",
+      "themeId": 8,
+      "theme": "日期、保质期、位置引用",
+      "themeLabel": "主题 8",
+      "authorizedBasis": "已登记：GB 7718-2025 4.7.1、4.7.2、10.1～10.3（F04）；覆盖表 4.7",
+      "appliesWhen": "2025 版日期要求；是否存在豁免须按已登记的 4.7、10.1～10.3 判断，不在本表编造未登记的品类豁免名单",
+      "executionText": "程序检查日期字段和例外线索；缺项或豁免不明则待核，不一律报缺生产日期",
+      "ruleCell": "F04",
+      "ruleIds": [
+        "F04"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注各日期角色的原文和位置。T09 未做",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-08-02",
+      "title": "日期指引应能一对多指向生产日期、到期日等目标，且保存来源区域",
+      "themeId": 8,
+      "theme": "日期、保质期、位置引用",
+      "themeLabel": "主题 8",
+      "authorizedBasis": "已登记：GB 7718-2025 4.7、附录 A.2（F04、C2）。一对多定位是方案 4.3 / T09 的实现要求",
+      "appliesWhen": "出现「见封口」「见包装背面」等指引",
+      "executionText": "有日期目标解析基础；一对多定位与物理位置核验尚未按新口径验收",
+      "ruleCell": "F04、C2",
+      "ruleIds": [
+        "F04",
+        "C2"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T09 未做；指引文字和目标区域须人工标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-08-03",
+      "title": "日期标示形式",
+      "themeId": 8,
+      "theme": "日期、保质期、位置引用",
+      "themeLabel": "主题 8",
+      "authorizedBasis": "已登记：GB 7718-2025 4.7.1、附录 A.2（C2）",
+      "appliesWhen": "已见到日期文字",
+      "executionText": "程序检查形式；不清则待核",
+      "ruleCell": "C2",
+      "ruleIds": [
+        "C2"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注允许形式与实际印刷形式",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-08-04",
+      "title": "保质期时长与起算、到期日的算术关系",
+      "themeId": 8,
+      "theme": "日期、保质期、位置引用",
+      "themeLabel": "主题 8",
+      "authorizedBasis": "无单独「必须按自然日相加」的已登记条款。工作副本 I06 作为同一标签内部一致性核对，要求向生产方确认起算口径，不直接定为违法；I06 为非本包已发布规则 ID",
+      "appliesWhen": "同时读到保质期时长、生产日期和到期日",
+      "executionText": "程序做日历加减并提示相差天数",
+      "ruleCell": "I06（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I06"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "须人工确认口径后再验；1 天差异不得自动升级",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-08-05",
+      "title": "读到日期内容与确认其物理位置分开保存",
+      "themeId": 8,
+      "theme": "日期、保质期、位置引用",
+      "themeLabel": "主题 8",
+      "authorizedBasis": "无单独条款号；方案 4.3、T09",
+      "appliesWhen": "有喷码或印刷日期",
+      "executionText": "证据对象尚未按方案完整分存四种对象；内容与位置分开验收未做",
+      "ruleCell": "F04、C2",
+      "ruleIds": [
+        "F04",
+        "C2"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "T09 未做",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-08-06",
+      "title": "「制作日期」等用语不能直接等同标准所称生产日期",
+      "themeId": 8,
+      "theme": "日期、保质期、位置引用",
+      "themeLabel": "主题 8",
+      "authorizedBasis": "无另登记的独立条号。F04 / 既有说明要求确认含义，不能仅凭该词认定违法",
+      "appliesWhen": "出现「制作日期」等非标准用词",
+      "executionText": "说明层有要求；程序是否稳定分流待核，缺少专项验收",
+      "ruleCell": "F04",
+      "ruleIds": [
+        "F04"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待有此用语的样本",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-09-01",
+      "title": "是否标示贮存条件",
+      "themeId": 9,
+      "theme": "贮存和食用方法",
+      "themeLabel": "主题 9",
+      "authorizedBasis": "已登记：GB 7718-2025 4.8、附录 A.3（A4）；覆盖表 4.8",
+      "appliesWhen": "2025 版普通预包装",
+      "executionText": "程序检查贮存条件是否可见，未见则待核",
+      "ruleCell": "A4",
+      "ruleIds": [
+        "A4"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注贮存原文；OCR 未见不得直接判未标（见 CP-01-04）",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-09-02",
+      "title": "贮存条件是否为有效描述而非占位词",
+      "themeId": 9,
+      "theme": "贮存和食用方法",
+      "themeLabel": "主题 9",
+      "authorizedBasis": "已登记依据同 4.8、附录 A.3（A4 实现说明含占位词判断）",
+      "appliesWhen": "已出现贮存栏",
+      "executionText": "程序做占位词与有效描述判断",
+      "ruleCell": "A4",
+      "ruleIds": [
+        "A4"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注何为有效描述",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-09-03",
+      "title": "食用方法或使用方法",
+      "themeId": 9,
+      "theme": "贮存和食用方法",
+      "themeLabel": "主题 9",
+      "authorizedBasis": "**无已登记的强制性「应当标示食用方法」条款。** 覆盖表 4.1 所列应标项目不包括食用方法。程序仅把「食用方法／使用方法」当作版面区域标签，并可能把相关句子用作声称核实的上下文（见 CP-15-02）。不得编造必须标示食用方法的条号",
+      "appliesWhen": "图上出现或不出现食用方法",
+      "executionText": "提取阶段可切分该区域；不是独立符合性规则。单凭「倒入开水」一类句子不能证明配方事实（方案 6.3）",
+      "ruleCell": "无独立规则 ID",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失（作为强制符合性检查）",
+      "tests": "若样本有食用方法，只作为可见原文和上下文证据标注，不预设「缺食用方法即不合格」",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-09-04",
+      "title": "贮存或温馨提示等同一段文字不得给出相互冲突的读法",
+      "themeId": 9,
+      "theme": "贮存和食用方法",
+      "themeLabel": "主题 9",
+      "authorizedBasis": "GB 7718-2025 3.2、3.4（工作副本 I03，针对胀袋等提示语自相矛盾的有限情形；I03 为非本包已发布规则 ID）",
+      "appliesWhen": "出现贮运说明与处置警示写在一起的文本",
+      "executionText": "程序仅覆盖已实现的提示语矛盾模式，不是通用语义检查",
+      "ruleCell": "I03（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有特定模式逻辑；其他矛盾待人工",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-10-01",
+      "title": "八类致敏配料的提示或免标条件",
+      "themeId": 10,
+      "theme": "致敏物质与强调方式",
+      "themeLabel": "主题 10",
+      "authorizedBasis": "已登记：GB 7718-2025 4.12、10.3、附录 D（GB7718AL）；相关问答第三十八、三十九问（致敏物质标示与预防性提示）；覆盖表 4.12",
+      "appliesWhen": "2025 版普通预包装",
+      "executionText": "程序做八类逐类比对；例外须有依据。既有范围说明仍提醒：完整识别与视觉强调未完全自动覆盖",
+      "ruleCell": "GB7718AL",
+      "ruleIds": [
+        "GB7718AL"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "离线有 4.12 展开测试；真实配料致敏真值待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-10-02",
+      "title": "读取 4.12 时必须带回子条款的完整要求，而不是只返回标题",
+      "themeId": 10,
+      "theme": "致敏物质与强调方式",
+      "themeLabel": "主题 10",
+      "authorizedBasis": "已登记条款号仍为 4.12 及其子条款。这是知识库切片完整性要求（方案 5.1、T10）",
+      "appliesWhen": "任何需要引用 4.12 的检查或 Agent 检索",
+      "executionText": "工作副本已改：读取 4.12 会带回 4.12.1–4.12.3 的具体要求，不再只剩标题短句",
+      "ruleCell": "GB7718AL（取条款实现：条款索引）",
+      "ruleIds": [
+        "GB7718AL"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "present",
+      "coverageStatusLabel": "已有（取条款主体）",
+      "tests": "离线测试已覆盖 4.12 过短问题。仍须在发布库和真实入口补验；跨页表格不在本点",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-10-03",
+      "title": "配料表内提示或邻近提示是否符合附录 D.2",
+      "themeId": 10,
+      "theme": "致敏物质与强调方式",
+      "themeLabel": "主题 10",
+      "authorizedBasis": "已登记：GB 7718-2025 4.12.1、附录 D.2（B1B）。覆盖表称配料表内加粗可视为合规提示（附录 D.2.1）",
+      "appliesWhen": "需要致敏提示",
+      "executionText": "程序检查提示方式；视觉强调（加粗、颜色）在图像质量不足时应待核，不能假装已看过字重",
+      "ruleCell": "B1B、GB7718AL",
+      "ruleIds": [
+        "B1B",
+        "GB7718AL"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注提示位置和方式",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-10-04",
+      "title": "含麸质谷物等已单独实现的致敏分支",
+      "themeId": 10,
+      "theme": "致敏物质与强调方式",
+      "themeLabel": "主题 10",
+      "authorizedBasis": "依据同 4.12 与附录 D。审计代码中有 `GB7718AL-gluten`，该 ID 为非本包已发布规则 ID，登记表也未单列一条独立目录项",
+      "appliesWhen": "配料涉及含麸质谷物等已实现分支",
+      "executionText": "程序有专项分支；仍受配料识别完整性限制",
+      "ruleCell": "GB7718AL-gluten（非本包已发布规则 ID）",
+      "ruleIds": [
+        "GB7718AL-gluten"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待相应配料样本",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-01",
+      "title": "营养成分表是否检出，以及结构提取状态必须保留",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "已登记：GB 7718-2025 4.13（覆盖表，落到 GB 28050-2025 4.1、7、附录 B 等营养规则）。检出后如何处理是事实质检要求（方案 4.2）",
+      "appliesWhen": "需要标示营养标签的产品；豁免适用性未知时不得直接报缺或报通过",
+      "executionText": "程序记录是否检出表格、是否读到数字、提取状态（`ok` / `structural-failure` / `conflict` / `empty` / `absent`）",
+      "ruleCell": "N01；质检在 `fact_qa.py`",
+      "ruleIds": [
+        "N01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有构造夹具和结构失败用例。**真实薯片清晰原图提取（T01）未做**，构造值不是 T01 金标准",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-02",
+      "title": "强制 7 项是否按可见行提取：能量、蛋白质、脂肪、饱和脂肪、碳水化合物、糖、钠",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "已登记：GB 28050-2025 4.1、7、附录 B（N01）",
+      "appliesWhen": "营养表结构提取成功",
+      "executionText": "程序按 `NUTRITION_KEYS` 提取；缺项待核；结构失败不得改判通过或输出空表「未标」",
+      "ruleCell": "N01",
+      "ruleIds": [
+        "N01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T01 要求清晰原图可见行全部正确提取。当前只有构造 JSON 夹具",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-03",
+      "title": "保留值、单位、NRV 与行项目的对应关系；多合理配对时标歧义，不强行选最近值",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "依据同营养标签强制项；方案 4.2 的提取契约",
+      "appliesWhen": "已检出表格",
+      "executionText": "程序区分可靠配对、歧义配对、未配对，并写入待核对。行列结构仍可能把标题左边界当整表左边界，方案要求尚未改完",
+      "ruleCell": "N01、`fact_qa`",
+      "ruleIds": [
+        "N01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有未配对夹具（失败提示）。清晰原图正确配对仍待 T01",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-04",
+      "title": "计量基准：每 100 克／每 100 毫升／每份（含每份质量，如「每份 30 克」）／每包装",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "已登记营养规则要求有计量基准（N01 检查项含计量基准）。「每份 30 克」是方案和构造夹具中的示例口径，**不是**某张尚未提供的真实薯片照片的真值",
+      "appliesWhen": "已检出营养表",
+      "executionText": "程序识别基准并在夹具中保留「每份 30 克」；每份与每 100 克混用不得直接当成数值不一致（见 CP-12-03）",
+      "ruleCell": "N01",
+      "ruleIds": [
+        "N01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "构造夹具可跑。真实照片基准以人工标注为准",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-05",
+      "title": "清晰原图上的可见营养行、读数、单位、每份基准和已印 NRV 必须正确提取展示",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "依据同 4.1 与提取契约。T01 通过条件见方案第 13 节",
+      "appliesWhen": "有清晰营养表原图",
+      "executionText": "**未达到。** 当前不能只靠失败提示或整表待核对宣布修好",
+      "ruleCell": "N01、`fact_qa`",
+      "ruleIds": [
+        "N01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失（相对 T01）",
+      "tests": "无真实薯片三图及营养表单图的人工真值。见《薯片金标准模板.md》",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-06",
+      "title": "检出表格且读到数字，但结构化结果为空或全零，应判定结构提取失败，不得悄悄变成空表或「未标」",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "方案 4.2；不是另写的标准条号",
+      "appliesWhen": "检测到表且读到数字",
+      "executionText": "程序已有结构失败判定和提示",
+      "ruleCell": "`fact_qa`（`structural-failure`）",
+      "ruleIds": [],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "present",
+      "coverageStatusLabel": "已有（失败提示路径）",
+      "tests": "离线构造反例已通过。该路径通过 ≠ T01 通过",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-07",
+      "title": "相关版面不可读或未覆盖时，营养项为「无法识别」，不得判「未标」",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "方案 4.3、T06",
+      "appliesWhen": "仅正面、表模糊或表不在提交图中",
+      "executionText": "全面三态未做成",
+      "ruleCell": "无完整规则 ID",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "T06：工作副本有实现说明，业务验收未做",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-11-08",
+      "title": "4.1 以外的可选营养成分（如膳食纤维、维生素等）",
+      "themeId": 11,
+      "theme": "营养项目、单位与计量基准",
+      "themeLabel": "主题 11",
+      "authorizedBasis": "工作副本 I07 注释列出若干 4.1 以外常见成分词，用于「更醒目」判断（I07 为非本包已发布规则 ID）。提取键目前只有强制 7 项，**没有**把可选成分登记为强制提取规则，也不得把未登记的项目当成 4.1 义务",
+      "appliesWhen": "表内出现强制 7 项以外的成分",
+      "executionText": "程序基本不提取可选行；I07 仅在出现这些词时检查醒目性（见 CP-13-04；I07 为非本包已发布规则 ID）",
+      "ruleCell": "I07（仅醒目性；非本包已发布规则 ID）",
+      "ruleIds": [
+        "I07"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失（作为提取与符合性检查）",
+      "tests": "若原图有可选行，人工真值应记录，但不能用「程序没提」证明已审",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-01",
+      "title": "已印 NRV% 应提取；糖等无标准 NRV 的项目应保持空白，不得改写成 0，也不得因此当成缺项",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "已登记：GB 28050-2025 4.1、7、附录 A.3.2（F01）；问答第二十七问（数值修约）挂在 N02 下。实现说明与 `fact_qa.ALLOWED_BLANK_NRV` 明确糖无标准 NRV",
+      "appliesWhen": "营养表已提取",
+      "executionText": "程序对糖的空白 NRV 不再改成 0，也不因此进入待核对",
+      "ruleCell": "F01、N02（条款映射含 A.3／修约问答）",
+      "ruleIds": [
+        "F01",
+        "N02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "构造夹具覆盖空白糖 NRV。T02 仍需按真值补「无法比较 ≠ 数值不一致」。真实已印 NRV 以原图标注为准，不引用构造数字作为 T01 答案",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-02",
+      "title": "按已登记修约规则核对其 NRV%；读取 A.3.2 不得吞入后续附录",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "已登记：GB 28050-2025 附录 A.3.2（F01）；问答第二十七问。T10 要求该条完整且不越界",
+      "appliesWhen": "已提取标示值和 NRV 列",
+      "executionText": "工作副本读取 A.3.2 只保留本条，不再带入后面附录（离线已测）。完整按参考值计算并验收「计算吻合／不吻合」仍需补",
+      "ruleCell": "F01、N02",
+      "ruleIds": [
+        "F01",
+        "N02"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "A.3.2 边界离线已通过。跨页表格未验。参考值具体数字以发布库原文为准，本表不另编数值表",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-03",
+      "title": "NRV 缺失、单位缺失或每份／每 100 克混用时，「无法比较」不等于「数值不一致」，不能升级为确定问题",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "方案 T02、6.3。依据仍落在已登记的计量基准与 NRV 规则，不另造条号",
+      "appliesWhen": "比较或复算所需要素不齐",
+      "executionText": "糖空白 NRV 已避免改 0；「无法比较」与「不一致」的完整分流验收未完成",
+      "ruleCell": "F01、N01、N02",
+      "ruleIds": [
+        "F01",
+        "N01",
+        "N02"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T02 需补；要有人工标注的混用／缺单位样本",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-04",
+      "title": "能量表内复算",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "当前登记表：N02 标题为能量表内复算，条款映射为 GB 28050-2025 附录 A.1、A.3。N03 条款映射为 2.3。根目录旧 `rules.json` 对 N02／N03 的职责写法相反，且引用 2011 版，**不以旧文件为授权依据**。方案 6.3 要求不能永久假定只有三项供能",
+      "appliesWhen": "营养读数可靠且计量基准一致",
+      "executionText": "程序按蛋白质、脂肪、碳水化合物做表内计算；膳食纤维、糖醇等其他供能成分不自动纳入。争议读数只卡住依赖它的结论",
+      "ruleCell": "N02、N03、N00（N00 为非本包已发布规则 ID）",
+      "ruleIds": [
+        "N02",
+        "N03",
+        "N00"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "无经人工核定的复算真值。其他供能成分存在时应记未覆盖或待核，不得当成已复算通过",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-05",
+      "title": "原读数与重读冲突必须保留；无有效采用记录不得自动解除",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "方案 4.1、T03。不是另写的标准条号",
+      "appliesWhen": "出现如「原读数与重读不一致」的情况",
+      "executionText": "证据清单能保留多次读数状态；T03：工作副本有实现说明，业务验收未做",
+      "ruleCell": "N00（非本包已发布规则 ID）；`evidence_checklist`",
+      "ruleIds": [
+        "N00"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T03：工作副本有实现说明，业务验收未做。不得用构造数字冒充某张真实照片的 125 / 12.5 案例，除非该照片经人工确认",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-06",
+      "title": "所需数值全部核验后，计算吻合则通过；不吻合须满足适用条件才成为确定问题",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "方案 6.3、T04。计算所依据的条款见 CP-12-02、CP-12-04",
+      "appliesWhen": "比较或复算所需证据齐全",
+      "executionText": "有分层阻断和证据清单状态（缺失／已读到未核验／已核验／冲突）；完整证据链验收未做",
+      "ruleCell": "N02、N03、F01、`evidence_checklist`",
+      "ruleIds": [
+        "N02",
+        "N03",
+        "F01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T04 需补",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-12-07",
+      "title": "一个营养字段有争议时，只阻断依赖它的营养结论，名称、日期等有充分证据的项目仍可继续",
+      "themeId": 12,
+      "theme": "NRV、修约和能量复算",
+      "themeLabel": "主题 12",
+      "authorizedBasis": "方案第 4.2 节及既有 `fact_qa` 依赖表。不是标准条号",
+      "appliesWhen": "部分营养读数争议或结构失败",
+      "executionText": "程序已按结论依赖阻断 N00／N01／N02／N03／F01 等（N00 为非本包已发布规则 ID）；整单只在混图归属冲突时暂停",
+      "ruleCell": "`fact_qa.CONCLUSION_DEPENDENCIES`",
+      "ruleIds": [],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有质检用例。须用真实任务证明其他章节未被错误拖停",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-13-01",
+      "title": "盐、油、糖等提示语",
+      "themeId": 13,
+      "theme": "营养声称及提示语",
+      "themeLabel": "主题 13",
+      "authorizedBasis": "已登记：GB 28050-2025 4.5、7、附录 B（F02）",
+      "appliesWhen": "2025 版需要标示营养标签的情形",
+      "executionText": "程序做文字检索；位置和版面须人工复核，不能把检索命中当成已核位置",
+      "ruleCell": "F02",
+      "ruleIds": [
+        "F02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注提示语原文和位置；无提示语的样本也要标「未见／版面未覆盖」",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-13-02",
+      "title": "含量声称、比较声称等完整营养声称条件",
+      "themeId": 13,
+      "theme": "营养声称及提示语",
+      "themeLabel": "主题 13",
+      "authorizedBasis": "既有范围说明将「完整营养声称条件」列为未自动覆盖。F03 只覆盖「无／不含／不添加」等用语（依据见 CP-05-04），不能替代营养声称条件表。**GB 28050-2025 中营养声称的具体条款号尚未登记到本项目规则映射**，本表不编造「表 C」或声称阈值条号",
+      "appliesWhen": "标签出现营养声称",
+      "executionText": "未实现完整自动判定；应显示未覆盖或转人工。不得把 F02／F03 的结果写成「营养声称已全面审核」",
+      "ruleCell": "无已登记的营养声称条件规则 ID",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "human",
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "待人工标注声称原文和是否具备声称条件；验收先查「未覆盖」是否如实出现",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-13-03",
+      "title": "不得含有虚假内容，不得涉及疾病预防、治疗功能",
+      "themeId": 13,
+      "theme": "营养声称及提示语",
+      "themeLabel": "主题 13",
+      "authorizedBasis": "已登记：食品安全法第七十一条（LAW71）；广告法第十七条（ADV17，适用于标签含广告性用语时）。覆盖表 3.4 为部分：已覆盖疾病预防治疗用语，通用图文误导未实现",
+      "appliesWhen": "出现相关声称或广告性用语",
+      "executionText": "程序在有依据的用语上引用法律文本；不是通用语义审核",
+      "ruleCell": "LAW71、ADV17",
+      "ruleIds": [
+        "LAW71",
+        "ADV17"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注正例与反例用语",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-13-04",
+      "title": "标示了 4.1 以外营养成分时，4.1 强制项应更醒目",
+      "themeId": 13,
+      "theme": "营养声称及提示语",
+      "themeLabel": "主题 13",
+      "authorizedBasis": "GB 28050-2025 6.2（工作副本 I07 引用；I07 为非本包已发布规则 ID）。仅当表内出现 4.1 以外成分时才适用；只有 7 项强制内容的表不适用本条",
+      "appliesWhen": "表内出现额外营养成分，且需要判断醒目性",
+      "executionText": "程序尝试比较字重；测不到则待核，并要求矢量稿或清晰打样。纯文本模型不能声称已经看过字号或加粗（方案 7.1）",
+      "ruleCell": "I07（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I07"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "AI-assist"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "须有额外成分且可测量或明确不可测的样本",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-13-05",
+      "title": "法律、法规、食品安全标准或国务院相关部门公告要求标示的警示语",
+      "themeId": 13,
+      "theme": "营养声称及提示语",
+      "themeLabel": "主题 13",
+      "authorizedBasis": "已登记：GB 7718-2025 4.14（R14，页码 [7]），转致性条款，须对照具体规定。程序只对 `knowledge/warnings.json` 登记的两类依据出结论，该表由 `scripts/build_warnings.py` 从授权文件生成：① 市场监管总局关于加强固体饮料质量安全监管的公告（2021 年第 46 号）第三条；② 「三新食品」推荐食用量及适宜人群一览表。其余法律、法规、食品安全标准和部门公告要求的警示语**尚未登记**，仍按未覆盖处理。F02（GB 28050-2025 盐、油、糖提示语）不得代替本条，本检查点也不得用 F02 充抵 4.14",
+      "appliesWhen": "2025 版；当相关规定要求标示警示语时。适用性未知时不得直接排除，也不得记为通过。标签属性名只写「固体饮料」、读不到公告列举类别时，按适用性未知转人工，不判缺失",
+      "executionText": "程序检查已登记依据：固体饮料警示信息可判「读到／读不到」，命中类别为公告列举的蛋白、植物、特殊用途、风味固体饮料及添加可食用菌种的固体饮料；**面积不小于所在面 20%、黑体字、与背景有明显色差三项版式要求一律标未校验**，无矢量稿或实测不得判合规。「三新食品」原料命中只转人工核对，因该表为推荐性资料，不判缺失。没有命中任何已登记依据时显示未检查／未覆盖，不得写成通过",
+      "ruleCell": "R14",
+      "ruleIds": [
+        "R14"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有离线断言 `tests/test_r14_warning.py`（含「未覆盖不得变成通过」的检查点断言）；依据表可用 `python3 scripts/build_warnings.py --check` 复核是否被手改。尚无人工真值样本，也未经活体验收",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-01",
+      "title": "进口预包装应核对原产国或地区、境内责任主体、注册编号、中外文对应等",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "已登记：GB 7718-2025 第 8 章（IMPORT2025）",
+      "appliesWhen": "食品范围为进口预包装",
+      "executionText": "程序列出应核对项目并转入专项资料审核，不直接套用国产许可证结论",
+      "ruleCell": "IMPORT2025",
+      "ruleIds": [
+        "IMPORT2025"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "外部语料中有进口标签线索，但只能列为待重新标注，不得把旧字段稿当正式真值",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-02",
+      "title": "进口食品的法律与管理办法衔接",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "已登记：食品安全法第九十七条（IMPORT）；相关《中华人民共和国进出口食品安全管理办法》第三十条",
+      "appliesWhen": "进口路径",
+      "executionText": "分流专项审核",
+      "ruleCell": "IMPORT",
+      "ruleIds": [
+        "IMPORT"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "同 CP-14-01",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-03",
+      "title": "小作坊等属地标示",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "已登记：河北省食品小作坊小餐饮小摊点管理条例第二十四条、第六十六条（HEBEI）。该条例只在食品范围为小作坊且涉及该属地时适用，不得普遍套用到普通预包装",
+      "appliesWhen": "明确为小作坊路径",
+      "executionText": "分流属地审核",
+      "ruleCell": "HEBEI",
+      "ruleIds": [
+        "HEBEI"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "无本轮属地真值",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-04",
+      "title": "国产普通食品的「产地」或「原产地」栏",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "覆盖表 4.1 的应标项目清单未把「产地」列为普通国产预包装的一般强制项。进口原产国见 CP-14-01。**不得编造「所有国产食品都必须标产地」的条款**",
+      "appliesWhen": "图上出现产地栏，或审核目的要求核产地",
+      "executionText": "程序可检索「原产国／原产地」等词；不是普遍强制缺项检查",
+      "ruleCell": "IMPORT／IMPORT2025（仅进口路径）",
+      "ruleIds": [
+        "IMPORT",
+        "IMPORT2025"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失（作为普遍强制检查）",
+      "tests": "若样本有产地文字，按可见原文标注即可",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-05",
+      "title": "转基因生物标识",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "授权库**有**《农业转基因生物标识管理办法》。检索主题含「转基因」关键词。**无已登记条款号**，不编造办法条号或标识目录",
+      "appliesWhen": "配料或声称涉及转基因标识义务，或出现相关文字",
+      "executionText": "未实现按该办法的自动符合性检查；应未覆盖或待核",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "待有线索样本时标注，并验收是否如实未覆盖",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-06",
+      "title": "经辐照加工食品或辐照配料的标示",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "已登记：GB 7718-2025 4.15.1、4.15.2（R15）；覆盖表 4.15",
+      "appliesWhen": "名称或配料出现辐照线索，或需要确认未辐照标示",
+      "executionText": "程序按线索检查名称邻近或配料表内／临近位置；无线索时不能自动证明「未辐照」",
+      "ruleCell": "R15",
+      "ruleIds": [
+        "R15"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "有实现说明和构造覆盖；真实辐照标签待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-07",
+      "title": "特殊膳食、婴幼儿辅助食品等类别额外义务",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "授权库**有** GB 13432-2013、GB10769-2025。既有范围说明要求此类产品先分流人工，不得直接套用普通预包装结论。**无已登记的自动审核条款号**",
+      "appliesWhen": "产品属于特殊膳食或婴幼儿辅助食品等",
+      "executionText": "未实现自动专项审核；应分流并显示未覆盖",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "无分流验收样本",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-08",
+      "title": "地理标志或地名权利",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "授权库**有**《地理标志产品保护办法》（PDF 与 Word），**无已登记条款号**。名称中地名与真实属性的已登记依据见 CP-02-04（办法第十六条出现在审核笔记中）",
+      "appliesWhen": "名称或版面涉及地理标志或地名",
+      "executionText": "不能把未登记的保护办法条款当成已执行规则",
+      "ruleCell": "无（地名笔记见 CP-02-04）",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-14-09",
+      "title": "非直接提供给消费者的预包装食品／数字标签等（GB 7718-2025 第 5 章）",
+      "themeId": 14,
+      "theme": "产地、进口等条件项",
+      "themeLabel": "主题 14",
+      "authorizedBasis": "授权库有 GB 7718-2025 第 5 章（非直接提供给消费者／数字标签等）。**本 bundle 已发布规则书未登记第 5 章细条号**，不编造未登记子条款",
+      "appliesWhen": "食品或标签属于非直接提供给消费者的预包装，或涉及数字标签等第 5 章情形。适用性未知时不得直接排除，也不得记为通过",
+      "executionText": "未实现按第 5 章的自动符合性检查；适用时应分流人工并显示未覆盖",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "human",
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "待有线索样本时标注，并验收是否如实未覆盖／分流",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-15-01",
+      "title": "图案、风味名称与配料、特别强调及香精例外",
+      "themeId": 15,
+      "theme": "图文声称与标签事实一致性",
+      "themeLabel": "主题 15",
+      "authorizedBasis": "已登记：GB 7718-2025 4.4.1、4.4.1.2（C02）；问答第三十五问（食品标签上图片的使用）；附录相关见 C01／F03 映射",
+      "appliesWhen": "标签含风味、图案或类似线索",
+      "executionText": "程序做文字与有限线索判断，不能仅凭图案定论，也不能用纯文本模型声称已经看过图片内容",
+      "ruleCell": "C02",
+      "ruleIds": [
+        "C02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "AI-assist"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注图案对象、配料支撑和例外。不得把旧「骨汤」报告结论直接当金标准",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-15-02",
+      "title": "声称与配料、食用方法等上下文的关系；反证线索的证明范围必须写清",
+      "themeId": 15,
+      "theme": "图文声称与标签事实一致性",
+      "themeLabel": "主题 15",
+      "authorizedBasis": "依据同 4.4 及 C02。方案 6.3 明确：「倒入开水」可以是论证中的上下文或反证线索，但单靠这句话不能证明配方绝无骨汤",
+      "appliesWhen": "出现原料、风味或工艺相关声称",
+      "executionText": "程序可把食用方法句子加入核实提示；证明范围控制仍需人工和后续裁定流程",
+      "ruleCell": "C02",
+      "ruleIds": [
+        "C02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program",
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注「能证明什么／不能证明什么」",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-15-03",
+      "title": "通用图文误导、字号、色差等",
+      "themeId": 15,
+      "theme": "图文声称与标签事实一致性",
+      "themeLabel": "主题 15",
+      "authorizedBasis": "覆盖表 3.4 注明：通用误导判断（图文、字号、色差）未实现。3.4 已登记到 C02、LAW71，但不等于本点已实现",
+      "appliesWhen": "可能造成消费者误解的图文关系",
+      "executionText": "未实现通用判断",
+      "ruleCell": "覆盖表 3.4 为部分，本点为未实现",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "须在真值中单独标注，验收应看到未覆盖而非通过",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-15-04",
+      "title": "标签事实与声称不得虚假、夸大",
+      "themeId": 15,
+      "theme": "图文声称与标签事实一致性",
+      "themeLabel": "主题 15",
+      "authorizedBasis": "已登记：GB 7718-2025 3.4（覆盖表，部分）；食品安全法第七十一条（LAW71）",
+      "appliesWhen": "出现真实性相关声称",
+      "executionText": "仅覆盖已实现的具体规则，不提供普遍「已证实真实」的结论",
+      "ruleCell": "LAW71、C02",
+      "ruleIds": [
+        "LAW71",
+        "C02"
+      ],
+      "executionMethod": "human",
+      "executionMethods": [
+        "human"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "同 CP-13-03、CP-15-01",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-01",
+      "title": "跨图同字段冲突须先对齐字段语义和包装层级再比较",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "方案 4.3。无单独「如何合并多图」的标准条款",
+      "appliesWhen": "多图或多处出现同类信息",
+      "executionText": "混图算法尚未按新口径改写",
+      "ruleCell": "归属逻辑；N03 有营养多处读数核对",
+      "ruleIds": [
+        "N03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "T07 未做。T08：工作副本有实现说明，业务验收未做",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-02",
+      "title": "同品乱序上传不改变确定性结论；重复图不增加证据权重",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "方案 4.3、T07",
+      "appliesWhen": "同品多图、顺序变化或重复上传",
+      "executionText": "未做专项验收",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "T07 未做；同品样本待标注后再验",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-03",
+      "title": "异品混入不得拼成完整报告；合法内外包或不同角色的不同 SC 不机械误拦",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "方案 4.3、T08",
+      "appliesWhen": "一次提交含不同产品，或合法多主体编号",
+      "executionText": "未按新口径实现",
+      "ruleCell": "无",
+      "ruleIds": [],
+      "executionMethod": "unimplemented",
+      "executionMethods": [
+        "unimplemented"
+      ],
+      "coverageStatus": "missing",
+      "coverageStatusLabel": "缺失",
+      "tests": "T08：工作副本有实现说明，业务验收未做",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-04",
+      "title": "料包顺序与净含量明细的内部一致性",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "GB 7718-2025 4.3.2（工作副本 I01 引用；I01 为非本包已发布规则 ID），见 CP-03-05",
+      "appliesWhen": "同时存在料包列示和重量明细",
+      "executionText": "程序有有限检查",
+      "ruleCell": "I01（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I01"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-05",
+      "title": "许可证用语内部一致性",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "GB 7718-2025 4.9、3.2（工作副本 I02 引用；I02 为非本包已发布规则 ID），见 CP-07-05",
+      "appliesWhen": "多处许可证用语",
+      "executionText": "程序有有限检查",
+      "ruleCell": "I02（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I02"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-06",
+      "title": "提示语内部自相矛盾",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "GB 7718-2025 3.2、3.4（工作副本 I03 引用；I03 为非本包已发布规则 ID），见 CP-09-04",
+      "appliesWhen": "出现已实现模式的提示语",
+      "executionText": "程序有有限模式",
+      "ruleCell": "I03（非本包已发布规则 ID）",
+      "ruleIds": [
+        "I03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "待标注",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-07",
+      "title": "换图、换区域、换单位或换计量基准后，相关旧确认必须失效",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "方案 4.1、T05。确认有效性由服务端按依赖计算",
+      "appliesWhen": "已有人工确认后又改变图像或相关数据",
+      "executionText": "换图或相关数据失效已有一部分；换区域、单位、基准的完整失效未补全",
+      "ruleCell": "确认绑定逻辑（`fact_qa`）",
+      "ruleIds": [],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "T05：工作副本有实现说明，业务验收未做。真值须记录确认所绑定的图、区域、单位和基准",
+      "evidenceRequirements": {
+        "pass": [
+          "requiredFacts"
+        ],
+        "issue": [
+          "requiredFacts"
+        ],
+        "review": [
+          "requiredFacts"
+        ]
+      }
+    },
+    {
+      "checkpointId": "CP-16-08",
+      "title": "营养表内部及多处读数是否一致",
+      "themeId": 16,
+      "theme": "跨图冲突和稿件内部一致性",
+      "themeLabel": "主题 16",
+      "authorizedBasis": "当前登记表 N03 为「营养数据交叉核对」，条款映射 GB 28050-2025 2.3",
+      "appliesWhen": "营养表已提取或跨图出现营养读数",
+      "executionText": "程序做交叉核对，不一致则待核",
+      "ruleCell": "N03",
+      "ruleIds": [
+        "N03"
+      ],
+      "executionMethod": "program",
+      "executionMethods": [
+        "program"
+      ],
+      "coverageStatus": "partial",
+      "coverageStatusLabel": "部分",
+      "tests": "与 T02、T04 一并按真值验收",
+      "evidenceRequirements": {
+        "pass": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "issue": [
+          "value",
+          "unit",
+          "basis",
+          "printedNrv",
+          "reference",
+          "rounding"
+        ],
+        "review": [
+          "value",
+          "unit",
+          "basis"
+        ]
+      }
+    }
+  ]
+}

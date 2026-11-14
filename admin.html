@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>知识库与规则管理</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/admin.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="frame masthead">
+      <div class="brand">
+        <span>食品标签审核台 · 管理</span>
+      </div>
+      <div class="header-actions">
+        <a class="quiet header-link" href="/">返回审核台</a>
+      </div>
+    </div>
+  </header>
+  <main class="frame">
+    <div class="intro">
+      <h1>知识库与规则管理</h1>
+      <p class="admin-muted">展示与执行使用同一套已发布配置。保存草稿不会改变正在使用的审核行为，须试跑并发布后才会生效。正在执行和历史任务继续使用启动时的版本。</p>
+      <p id="versionLine" class="meta-text"></p>
+    </div>
+    <div id="feedback" class="feedback" hidden></div>
+    <div class="admin-tabs" role="tablist">
+      <button type="button" data-tab="knowledge" aria-pressed="true">知识库</button>
+      <button type="button" data-tab="rules" aria-pressed="false">审核规则</button>
+      <button type="button" data-tab="interpretations" aria-pressed="false">审核口径</button>
+      <button type="button" data-tab="agents" aria-pressed="false">Agent 配置</button>
+      <button type="button" data-tab="publish" aria-pressed="false">发布与历史</button>
+    </div>
+
+    <section id="tab-knowledge">
+      <div class="admin-toolbar">
+        <input id="knowledgeQuery" placeholder="条款号、关键词或主题" size="40">
+        <select id="searchMode">
+          <option value="exact">条款号精确查询</option>
+          <option value="keyword" selected>关键词检索</option>
+          <option value="topic">主题匹配</option>
+          <option value="related">关联条款展开</option>
+        </select>
+        <button type="button" class="primary" id="searchKnowledge">检索</button>
+        <button type="button" class="quiet" id="refreshIngest">重新质检授权文件</button>
+      </div>
+      <div id="searchResults"></div>
+      <h2>入库文件</h2>
+      <p class="admin-muted">上传完成只算待审核。同一标准的 PDF 与 Word 关联为同一版本的两份文件；内容不一致时先报差异。</p>
+      <div class="admin-grid">
+        <div>
+          <table class="admin-table" id="docTable"><thead><tr><th>文件</th><th>状态</th><th>条款</th></tr></thead><tbody></tbody></table>
+        </div>
+        <div class="admin-panel" id="docDetail"><p class="admin-muted">选择左侧文件查看原文定位、切片和质检结果。</p></div>
+      </div>
+    </section>
+
+    <section id="tab-rules" hidden>
+      <p class="admin-muted">后台展示的规则与 audit.py 实际执行来自同一套登记。只改根目录旧版 rules.json 不会改变审核行为。</p>
+      <div class="admin-grid">
+        <div>
+          <table class="admin-table" id="ruleTable"><thead><tr><th>规则</th><th>状态</th><th>实现版本</th></tr></thead><tbody></tbody></table>
+        </div>
+        <div class="admin-panel" id="ruleDetail"></div>
+      </div>
+    </section>
+
+    <section id="tab-interpretations" hidden>
+      <div class="admin-panel" id="interpDetail"></div>
+    </section>
+
+    <section id="tab-agents" hidden>
+      <div class="admin-panel" id="agentDetail"></div>
+    </section>
+
+    <section id="tab-publish" hidden>
+      <div class="admin-toolbar">
+        <input id="publishReason" placeholder="发布或回滚原因" size="40">
+        <input id="editorName" placeholder="确认人" value="admin" size="12">
+        <button type="button" class="quiet" id="runChecks">自动检查</button>
+        <button type="button" class="quiet" id="runTrial">固定样例试跑</button>
+        <button type="button" class="primary" id="publishNow">审核确认并发布</button>
+      </div>
+      <div id="affectedBox" class="admin-panel"></div>
+      <div id="trialBox" class="admin-panel"></div>
+      <h2>历史版本</h2>
+      <table class="admin-table" id="historyTable"><thead><tr><th>时间</th><th>动作</th><th>版本</th><th>原因</th><th></th></tr></thead><tbody></tbody></table>
+    </section>
+  </main>
+</body>
+</html>
