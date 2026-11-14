@@ -1,4 +1,7 @@
-"""Opt-in three-role suggestions. Never mutate audit facts or publish decisions."""
+"""Optional audit and remediation calls, with legacy role helpers retained.
+
+Candidates cannot mutate audit facts or publish decisions on their own.
+"""
 import hashlib
 import json
 import os

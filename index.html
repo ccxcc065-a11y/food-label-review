@@ -50,8 +50,8 @@
         </div>
         <div class="examples">
           <div class="examples-head">
-            <h2>用样例试审</h2>
-            <p>直接用原始图片运行识别和审核。</p>
+            <h2>先体验一个合成样例</h2>
+            <p>虚构标签与预置 OCR 文字。实际运行字段提取和报告流程，不调用模型。</p>
           </div>
           <ol id="samples" class="sample-list"></ol>
         </div>
@@ -60,6 +60,7 @@
         <strong>适用范围</strong>
         <span>按指定知识库逐项审核。专项食品及依据不足的项目会单独提示。</span>
       </div>
+      <p class="demo-note">公开仓库不含标准正文；未导入授权依据时，条款相关项目显示未检查／未覆盖。演示结果不代表标签合规。</p>
     </section>
 
     <section id="workspace" aria-labelledby="caseTitle" hidden>
@@ -183,9 +184,9 @@
           </div>
           <div id="fieldEditor" hidden></div>
           <details id="agentPanel" class="settings">
-            <summary>AI 审核、撰稿与复核建议</summary>
-            <p class="field-note">发送当前标签文字、校对字段和指定知识库依据到已配置的 DeepSeek 模型。三个角色依次处理，候选建议需对照原图与依据核验。</p>
-            <button type="button" id="runAgents" class="quiet">发送文字并运行三角色复核</button>
+            <summary>查看本次 AI 审核与整改建议</summary>
+            <p class="field-note">正常审核可按配置调用审核与撰稿两个角色。此处只查看本次结果；合成样例不调用模型，候选须对照原图与依据核验。</p>
+            <button type="button" id="runAgents" class="quiet">查看本次 AI 结果</button>
             <div id="agentOutput" aria-live="polite"></div>
           </details>
         </section>

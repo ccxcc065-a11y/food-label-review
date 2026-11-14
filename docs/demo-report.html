@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>预包装食品中文标签合规审核报告 · 虚构原味饼干</title>
+<style>
+  :root{
+    --ink:#161a1f; --ink2:#3a424d; --muted:#6b7683; --line:#e4e8ee;
+    --bg:#f6f7f9; --card:#ffffff;
+    --red:#c0392b; --redbg:#fdecea;
+    --amber:#9a6b00; --amberbg:#fdf6e3;
+    --blue:#1a5fb4; --bluebg:#eaf2fd;
+    --gray:#5b6470; --graybg:#f0f2f5;
+    --green:#1a7f4b; --greenbg:#e8f5ee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+    font-size:14px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:1000px; margin:0 auto; padding:32px 28px 64px; background:var(--card);
+    box-shadow:0 1px 3px rgba(0,0,0,.06),0 12px 32px rgba(20,30,50,.05);}
+  /* header */
+  .kicker{font-size:12px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase;}
+  h1{font-size:25px; line-height:1.4; margin:10px 0 6px; letter-spacing:-.2px;}
+  .sub{color:var(--ink2); font-size:14.5px;}
+  .meta{display:flex; flex-wrap:wrap; gap:8px 28px; margin:18px 0 0; padding:14px 0 0;
+    border-top:1px solid var(--line); font-size:13px; color:var(--muted);}
+  .meta b{color:var(--ink); font-weight:600;}
+  /* verdict */
+  .verdict{margin:24px 0 8px; border:1px solid #f0c9c3; border-left:5px solid var(--red);
+    background:var(--redbg); border-radius:8px; padding:18px 20px;}
+  .verdict .tag{display:inline-block; background:var(--red); color:#fff; font-size:12px;
+    font-weight:700; padding:2px 10px; border-radius:4px; letter-spacing:.05em;}
+  .verdict p{margin:10px 0 0; color:#7a2a22; font-size:14.5px;}
+  .verdict strong{color:#5e1c16;}
+  /* stat cards */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0 34px;}
+  .stat{border:1px solid var(--line); border-radius:8px; padding:14px 16px; background:#fbfcfd;}
+  .stat .n{font-size:26px; font-weight:700; line-height:1.2;}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:2px;}
+  .stat.r .n{color:var(--red);} .stat.a .n{color:var(--amber);}
+  .stat.b .n{color:var(--blue);} .stat.g .n{color:var(--gray);}
+  /* sections */
+  h2{font-size:17px; margin:38px 0 4px; padding-bottom:9px; border-bottom:2px solid var(--ink);
+    letter-spacing:.02em;}
+  h2 .num{color:var(--muted); font-weight:400; margin-right:8px; font-variant-numeric:tabular-nums;}
+  h3{font-size:14.5px; margin:24px 0 8px; color:var(--ink);}
+  p{margin:9px 0;}
+  .lead{color:var(--ink2);}
+  /* timeline */
+  .tl{display:grid; grid-template-columns:88px 1fr; gap:0 14px; margin:16px 0 6px;
+    border-left:2px solid var(--line); padding-left:0;}
+  .tl .d{font-variant-numeric:tabular-nums; font-weight:700; font-size:13px; color:var(--blue);
+    padding:10px 0 10px 14px; position:relative;}
+  .tl .d::before{content:""; position:absolute; left:-6px; top:18px; width:9px; height:9px;
+    border-radius:50%; background:#fff; border:2px solid var(--blue);}
+  .tl .c{padding:8px 0 12px; font-size:13.5px; color:var(--ink2);}
+  .tl .c b{color:var(--ink);}
+  /* tables */
+  table{width:100%; border-collapse:collapse; margin:14px 0 6px; font-size:13.5px;}
+  th,td{border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top;}
+  th{background:#f3f5f8; font-weight:600; font-size:12.5px; color:var(--ink2); white-space:nowrap;}
+  td.num,th.num{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  tbody tr:nth-child(even){background:#fbfcfd;}
+  .ok{color:var(--green); font-weight:700;}
+  .no{color:var(--red); font-weight:700;}
+  /* chips */
+  .chip{display:inline-block; font-size:11.5px; font-weight:700; padding:1px 8px;
+    border-radius:20px; white-space:nowrap; letter-spacing:.02em;}
+  .chip.r{background:var(--redbg); color:var(--red); border:1px solid #f2c7c1;}
+  .chip.a{background:var(--amberbg); color:var(--amber); border:1px solid #ecd9a5;}
+  .chip.b{background:var(--bluebg); color:var(--blue); border:1px solid #c6dbf7;}
+  .chip.g{background:var(--graybg); color:var(--gray); border:1px solid #dde1e7;}
+  /* quote / basis */
+  .rule{font-size:12.5px; color:var(--muted); line-height:1.6;}
+  .rule b{color:var(--ink2);}
+  /* callouts */
+  .box{border:1px solid var(--line); border-radius:8px; padding:14px 18px; margin:16px 0;
+    background:#fbfcfd;}
+  .box.warn{border-color:#f0d9a8; background:var(--amberbg);}
+  .box.info{border-color:#cddffb; background:var(--bluebg);}
+  .box h4{margin:0 0 6px; font-size:13.5px;}
+  /* text block */
+  pre{background:#f4f6f8; border:1px solid var(--line); border-left:4px solid var(--green);
+    border-radius:6px; padding:14px 16px; font-size:13.5px; line-height:1.9; margin:14px 0;
+    white-space:pre-wrap; word-break:break-word;
+    font-family:"Microsoft YaHei","PingFang SC",sans-serif; color:var(--ink);}
+  code{background:#eef1f5; padding:1px 5px; border-radius:3px; font-size:12.5px;
+    font-family:Consolas,"Courier New",monospace;}
+  ul,ol{margin:8px 0; padding-left:22px;}
+  li{margin:5px 0;}
+  .foot{margin-top:40px; padding-top:16px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--muted); line-height:1.8;}
+  @media print{
+    body{background:#fff;} .page{box-shadow:none; max-width:none; padding:0;}
+    h2{break-after:avoid;} table{break-inside:auto;} tr{break-inside:avoid;}
+  }
+  @media (max-width:760px){
+    .page{padding:20px 16px 40px;} .stats{grid-template-columns:repeat(2,1fr);}
+    .tl{grid-template-columns:70px 1fr;}
+  }
+</style>
+<style>
+@media print {
+  @page { size: A4; margin: 13mm; }
+  body { line-height: 1.45; }
+  .page { padding: 0; }
+  .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tl { grid-template-columns: 88px 1fr; }
+  .box, pre { margin: 8px 0; }
+  h2 + .lead { break-after: avoid; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  .nutri { break-inside: avoid; }
+  .nutri table { break-inside: avoid; }
+  pre { line-height: 1.55; break-inside: auto; }
+  li { break-inside: avoid; }
+  h4 { break-after: avoid; }
+  th, td { padding-top: 6px; padding-bottom: 6px; }
+  .foot { margin-top: 8px; padding-top: 5px; line-height: 1.4; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="kicker">Food Label Compliance Review</div>
+  <h1>预包装食品中文标签合规审核报告</h1>
+  <div class="box warn"><b>合成流程演示</b><p>使用虚构标签和预置 OCR 文字，未运行 OCR 或云端 AI；可用依据以本次来源和缺口记录为准，依据不足的项目保持未检查／未覆盖。本报告仅展示操作流程，不是真实产品合规结论。</p></div>
+  <div class="sub">标的产品：<b>虚构原味饼干</b>　净含量 100克</div>
+
+  <div class="meta">
+    <div>审核对象：国内普通预包装食品；设计稿（刀版图），非实物；单张原图</div>
+    <div>审核日期：<b>2026-11-14</b></div>
+    <div>审核依据：指定知识库中的 GB 7718-2025、GB 28050-2025</div>
+    <div>本次审核模型：未配置　审核时间：2026-11-14T10:28:17.086+00:00</div>
+    <div>AI 审核：检查 0 项，提出 0 条候选；0 条与既有事项重复已合并，0 条新增，0 条待人工复核（状态：skipped）</div>
+  </div>
+
+  <div class="verdict" style="background:var(--graybg);border-color:var(--line);border-left-color:var(--gray)">
+    <span class="tag" style="background:var(--gray)">审核结论 · 待核实</span>
+    <p style="color:var(--ink2)">共列示 <strong style="color:var(--ink2)">0 项须整改后复审</strong>，其中确认红线 <strong style="color:var(--ink2)">0 项</strong>、稿件停版 <strong style="color:var(--ink2)">0 项</strong>；<strong style="color:var(--ink2)">0 项规范性检查或标签内对照</strong>、<strong style="color:var(--ink2)">0 项新规必改项</strong>、<strong style="color:var(--ink2)">15 项待核实事项</strong>。<br>其中，<strong style="color:var(--ink2)">净含量字高需结合实际尺寸核实</strong>。已定位净含量标示。图像没有经确认的成品尺度，无法据像素判断字符高度。</p>
+  </div>
+
+  <div class="stats"><div class="stat r"><div class="n">0</div><div class="l">须整改后复审<br><small>确认红线 0 · 稿件停版 0</small></div></div><div class="stat a"><div class="n">0</div><div class="l">规范性 · 限期改正</div></div><div class="stat b"><div class="n">0</div><div class="l">新规必改（2027-03-16）</div></div><div class="stat g"><div class="n">15</div><div class="l">待客户核实</div></div></div><div class="box warn"><p style="margin:0">本报告为规则版：AI 审核未参与，结论由规则与人工核验记录生成。</p></div>
+
+  <h2><span class="num">01</span>适用版本与时间轴</h2>
+  <p class="lead">本次按指定知识库中的 <b>GB 7718-2025、GB 28050-2025</b> 审核。</p>
+  <div class="tl"><div class="d">2025-03-16</div><div class="c"><b>新标准发布。</b>GB 7718-2025、GB 28050-2025 发布。</div><div class="d">2026-11-14</div><div class="c"><b>本次审核。</b>本次按指定知识库中的 GB 7718-2025、GB 28050-2025 审核。</div><div class="d">2027-03-16</div><div class="c"><b>新标准与新规实施。</b>GB 7718-2025、GB 28050-2025 及《食品标识监督管理办法》于该日实施。</div></div>
+  <div class="box warn">
+    <h4>给企业的实务判断</h4>
+    <p style="margin:0">标签生产日期栏读为「2026年05月01日」，实际生产批次待确认。标签保质期为 <b>6个月</b>。定版前请核对日期和报告中列出的标示事项。</p>
+    <div class="rule"><b>适用依据缺口</b>　一般标示项目需补充。当前指定资料没有启用这项检查所需的条款。</div>
+  </div>
+
+  <h2><span class="num">02</span>须整改后复审 0 项（确认红线 0 · 稿件停版 0）</h2>
+  
+  <table><thead><tr><th style="width:34px" class="num">#</th><th style="width:150px">问题</th><th>现状与依据</th><th style="width:250px">整改要求</th></tr></thead><tbody><tr><td colspan="4">本次证据未支持确认红线问题。相关条款或材料缺口详见待客户核实。</td></tr></tbody></table>
+
+  <h2><span class="num">03</span>规范性问题（限期改正，0 项）</h2>
+  
+  <table><thead><tr><th style="width:34px" class="num">#</th><th style="width:150px">问题</th><th>现状与依据</th><th style="width:250px">整改要求</th></tr></thead><tbody><tr><td colspan="4">当前资料未发现可列示的规范性问题。待核对项目见第 06 节。</td></tr></tbody></table>
+
+  <h2><span class="num">04</span>新规必改项（2027-03-16 前完成，0 项）</h2>
+  <table><thead><tr><th style="width:34px" class="num">#</th><th style="width:150px">问题</th><th>现状与依据</th><th style="width:250px">整改要求</th></tr></thead><tbody><tr><td colspan="4">本次未确认按 2025 版审核的不符合项。致敏物质的判定见第 06 节；其余待核实事项亦见第 06 节。</td></tr></tbody></table>
+
+  <h2><span class="num">05</span>营养成分表数值复核</h2>
+  <p class="lead">计量基准：每100克。表内复算按本次启用的指定标准口径，依据印刷读数或校对值。</p>
+  
+    <div class="nutri"><table><thead><tr><th style="width:110px">项目</th><th style="width:78px" class="num">标示值</th><th style="width:70px" class="num">标示 NRV%</th><th>复核计算</th><th style="width:70px" class="num">应为</th><th style="width:56px" class="num">判定</th></tr></thead><tbody><tr><td>能量</td><td class="num">2000 kJ</td><td class="num">24%</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr><tr><td>蛋白质</td><td class="num">6.0 g</td><td class="num">10%</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr><tr><td>脂肪</td><td class="num">20.0 g</td><td class="num">33%</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr><tr><td>—饱和脂肪</td><td class="num">5.0 g</td><td class="num">25%</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr><tr><td>碳水化合物</td><td class="num">65.0 g</td><td class="num">22%</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr><tr><td>—糖</td><td class="num">15.0 g</td><td class="num">—</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr><tr><td>钠</td><td class="num">400 mg</td><td class="num">20%</td>
+        <td>缺少可用的复算条件。</td>
+        <td class="num">—</td><td class="num">待核实</td></tr></tbody></table></div>
+  <div class="box info"><h4>补充判读</h4><ul style="margin:6px 0 0"><li><b>已识别的 NRV 可复算</b>。当前指定资料没有启用这项检查所需的条款。 补充指定知识库中的审核依据。</li><li><b>能量基础复算有差异</b>。当前指定资料没有启用这项检查所需的条款。 补充指定知识库中的审核依据。</li></ul></div>
+
+  <h2><span class="num">06</span>待客户核实的 15 项</h2>
+  <table><thead><tr><th style="width:34px" class="num">#</th><th style="width:190px">事项</th><th>核实依据与说明</th></tr></thead><tbody><tr><td class="num">1</td><td><b>一般标示项目需补充</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">2</td><td><b>警示语检查缺少依据表，本条未检查</b></td><td>按 2025 版审核。<br>本次运行读不到警示语依据表，4.14 按未检查／未覆盖处理，不得视为通过。
+        <br><b>核实动作</b>　恢复 knowledge/warnings.json 后重审</td></tr><tr><td class="num">3</td><td><b>贮存条件已给出有效描述</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <div class="rule"><b>依据要点</b>　GB 7718-2025 第 4.8 条</div><br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">4</td><td><b>生产者名称、地址、联系方式齐全</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <div class="rule"><b>依据要点</b>　GB 7718-2025 第 4.6 条</div><br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">5</td><td><b>日期标示需补充</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">6</td><td><b>净含量文字已定位</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">7</td><td><b>能量与核心四项已定位</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">8</td><td><b>2025 版新增营养项目已定位</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">9</td><td><b>盐油糖提示语需核对</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">10</td><td><b>已识别的 NRV 可复算</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">11</td><td><b>能量基础复算有差异</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">12</td><td><b>致敏物质标示待核对</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">13</td><td><b>致敏物质逐类结论需核实</b></td><td>按 2025 版审核。<br>当前指定资料没有启用这项检查所需的条款。
+        <div class="rule"><b>依据要点</b>　GB 7718-2025 第 4.12.1 条；配料表内提示方式按附录 D.2.1、D.2.2 核对</div><br><b>核实动作</b>　补充指定知识库中的审核依据</td></tr><tr><td class="num">14</td><td><b>净含量字高需结合实际尺寸核实</b></td><td>已定位净含量标示。图像没有经确认的成品尺度，无法据像素判断字符高度。
+        <br><b>核实动作</b>　以有尺寸比例的矢量原稿或印刷样核对字符高度</td></tr><tr><td class="num">15</td><td><b>饱和脂肪检测口径需核实</b></td><td>表内复算无法验证检测报告的项目名称和标示数据来源。
+        <br><b>核实动作</b>　索取检测报告与换算底稿，核对检测指标、基准与列示数值</td></tr></tbody></table>
+
+  <h2><span class="num">07</span>建议修改后文本（部分内容待确认，不可直接交生产方）</h2>
+  <p class="lead">以下为在现有原稿副本上应用已确认整改后的改版稿。加粗为建议变更，〔〕内需补充确认。核实项和原稿读数校对完成后再付印。</p>
+  
+  <pre>虚构原味饼干
+配料表：小麦粉、白砂糖、植物油、食用盐
+净含量：100克
+生产日期：2026年05月01日
+保质期：6个月
+贮存条件：阴凉干燥处保存
+责任主体名称：演示食品有限公司
+地址：演示市示例路1号
+联系方式：000-000-0000</pre>
+  
+  <p class="lead">营养成分表保留本次标示读数（每100克）。按第 05 节核实后定稿。</p><div class="nutri"><table><thead><tr><th style="width:150px">营养项目</th><th>标示值</th><th style="width:110px" class="num">标示 NRV%</th></tr></thead><tbody><tr><td>能量</td><td>2000 kJ</td><td class="num">24%</td></tr><tr><td>蛋白质</td><td>6.0 g</td><td class="num">10%</td></tr><tr><td>脂肪</td><td>20.0 g</td><td class="num">33%</td></tr><tr><td>—饱和脂肪</td><td>5.0 g</td><td class="num">25%</td></tr><tr><td>碳水化合物</td><td>65.0 g</td><td class="num">22%</td></tr><tr><td>—糖</td><td>15.0 g</td><td class="num">—</td></tr><tr><td>钠</td><td>400 mg</td><td class="num">20%</td></tr></tbody></table></div>
+
+  <h2><span class="num">08</span>审核说明</h2>
+  <ul style="font-size:13.5px; color:var(--ink2)">
+    <li><b>证据清单｜能量、蛋白质、脂肪、碳水化合物、钠标示与 NRV% 不一致</b>。能量值：已读到未核验；能量单位：已读到未核验；能量 NRV%：已读到未核验；蛋白质值：已读到未核验；蛋白质单位：已读到未核验；蛋白质 NRV%：已读到未核验；脂肪值：已读到未核验；脂肪单位：已读到未核验；脂肪 NRV%：已读到未核验；碳水化合物值：已读到未核验；碳水化合物单位：已读到未核验；碳水化合物 NRV%：已读到未核验；钠值：已读到未核验；钠单位：已读到未核验；钠 NRV%：已读到未核验；计量基准：已读到未核验；证据不足，保持待核实；满足几项不参与放行。<div class="rule">各项的核验状态由服务端判定，客户版只显示中文结论。</div></li><li><b>证据清单｜能量复算差异</b>。标示能量（值+单位）：已读到未核验；蛋白质（值+单位）：已读到未核验；脂肪（值+单位）：已读到未核验；碳水化合物（值+单位）：已读到未核验；计量基准：已读到未核验；供能口径与其他供能成分：已读到未核验；证据不足，保持待核实；满足几项不参与放行。<div class="rule">各项的核验状态由服务端判定，客户版只显示中文结论。</div></li>
+    
+    
+    
+    
+  </ul>
+
+  <div class="foot">
+    审核依据：<b>本次已引用</b>——待确认。<br>判定规则：相关依据缺口或资料待核实时，保留核对意见。
+  </div>
+
+</div>
+</body>
+</html>

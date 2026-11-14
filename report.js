@@ -746,6 +746,7 @@
 
   <div class="kicker">Food Label Compliance Review</div>
   <h1>预包装食品中文标签合规审核报告</h1>
+  ${context.demoMode ? '<div class="box warn"><b>合成流程演示</b><p>使用虚构标签和预置 OCR 文字，未运行 OCR 或云端 AI；可用依据以本次来源和缺口记录为准，依据不足的项目保持未检查／未覆盖。本报告仅展示操作流程，不是真实产品合规结论。</p></div>' : ""}
   <div class="sub">标的产品：<b>${escape(product)}${productDescriptor ? `（${escape(productDescriptor)}）` : ""}</b>${net ? `　净含量 ${escape(net)}` : ""}${packs ? `（${escape(packs)}）` : ""}${originText ? `　${escape(originText)}` : ""}${labelFacts.otherPackOrigins ? `；其余料包产地见包装${labelFacts.otherPackOriginsBelow ? "下方" : ""}受托方信息。` : ""}</div>
 
   <div class="meta">

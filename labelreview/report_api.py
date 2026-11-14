@@ -368,11 +368,11 @@ def _reclassify(report):
 
 
 def _ai_stats(plan, review, report):
-    items = plan.get("items") or []
     candidates = review.get("candidates") or []
     coverage = review.get("coverage") or report.get("auditCoverage") or []
     checked = len({str(row.get("checklistId") or row.get("checkpointId") or row.get("id") or i)
-                   for i, row in enumerate(coverage) if isinstance(row, dict)}) or len(items)
+                   for i, row in enumerate(coverage)
+                   if isinstance(row, dict) and row.get("coverage") == "已查"})
     existing_ids = {str(row.get("candidateId")) for row in report.get("items") or []
                     if isinstance(row, dict) and row.get("candidateId")}
     # Official merge count is same-issue identity, not wording overlap.

@@ -1,7 +1,7 @@
-# Runtime third-party libraries used by the workbench and knowledge tools.
-# Python 3.9+ standard library covers the rest. Pinning is left to the owner.
-Pillow
-pypdf
+# Tested with Python 3.9+; Node.js 20+ is also required to render reports.
+# OCR engines are optional in --demo mode.
+Pillow==11.3.0
+pypdf==6.14.2
 
 # Optional local OCR on Linux/Windows (macOS can keep using Apple Vision):
 # pip install rapidocr onnxruntime

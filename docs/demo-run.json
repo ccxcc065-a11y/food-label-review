@@ -1,0 +1,11 @@
+{
+  "kind": "synthetic-no-corpus-smoke-test",
+  "reportId": "R17946520971040f2326",
+  "contentHash": "bafc8aad33fba942ff72d109aa37a1f01de0bf1227e5bf1ad5699ea0b6acf349",
+  "htmlReadySeconds": 0.067,
+  "liveOcr": false,
+  "modelCalls": 0,
+  "nutritionRows": 7,
+  "checkOk": true,
+  "businessAccuracyEvaluated": false
+}

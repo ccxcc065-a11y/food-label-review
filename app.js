@@ -2,12 +2,7 @@
 
 const $ = (id) => document.getElementById(id);
 const samples = [
-  { name: "徐州肉酱米线", file: "rice-noodles.jpg", tag: "组合包装", scope: "regular" },
-  { name: "香辣烤鱼", file: "grilled-fish.png", tag: "营养复算", scope: "regular" },
-  { name: "鑫选康牛肉酱", file: "beef-sauce.png", tag: "声称核对", scope: "regular" },
-  { name: "米醋风味调味料", file: "seasoning.jpg", tag: "小作坊", scope: "workshop" },
-  { name: "榛子提拉米苏口味蛋糕", file: "cake.png", tag: "进口食品", scope: "imported" },
-  { name: "运康小米锅巴", files: ["guoba-front.jpg", "guoba-back.jpg"], tag: "实拍正反面", scope: "regular" },
+  { name: "虚构原味饼干", file: "synthetic-label.png", fixture: "synthetic-ocr.json", tag: "预置 OCR · 不调用 AI", scope: "regular" },
 ];
 const groups = { blocked: "已阻断", issue: "需处理", internal: "标签内对照", gap: "依据不足", review: "待核实", pass: "已检查" };
 const areas = { front: "正面", back: "背面", side: "侧面", seal: "封口或喷码区", other: "其他区域" };
@@ -47,6 +42,7 @@ let context = defaultContext();
 let scopeSelected = false;
 let sample = null;
 let busy = false;
+let demoServer = false;
 let stale = false;
 let activeGroup = "review";
 let activeMode = "results";
@@ -187,7 +183,7 @@ async function request(url, value, contentType = "application/json") {
     body: contentType === "application/json" ? JSON.stringify(value) : value,
   };
   const response = await fetch(url, options).catch(() => {
-    throw new Error("无法连接本地服务。请重新打开「启动审核.command」。");
+    throw new Error("无法连接本地服务。请确认 python3 server.py 正在运行，并从终端显示的地址打开页面。");
   });
   const payload = await response.json().catch(() => null);
   if (!response.ok || !payload) {
@@ -206,6 +202,10 @@ function casePayload() {
 }
 
 function updateActions() {
+  for (const node of document.querySelectorAll("[data-upload]")) {
+    node.disabled = busy || demoServer;
+    node.title = demoServer ? "演示使用预置文字。识别自己的图片请去掉 --demo 重启。" : "";
+  }
   $("report").disabled = busy || stale || result?.canPublish !== true;
   // 阶段 2：全文一致性检查未通过时，工作台可看底稿，但不能下载客户版。
   const checkFailed = result?.checkErrors?.ok === false;
@@ -287,7 +287,7 @@ async function addImages(files, preset = null) {
     }
     const before = images.length;
     for (const [index, file] of files.entries()) {
-      feedback(`正在本地识别第 ${index + 1}/${files.length} 张图…`);
+      feedback(preset?.fixture ? "正在载入合成标签与预置文字…" : `正在本地识别第 ${index + 1}/${files.length} 张图…`);
       try {
         if (file.size > 16 * 1024 * 1024) throw new Error("单张图片超过 16 MB。");
         if (!/\.(?:jpe?g|jfif|png)$/i.test(file.name)) throw new Error("请选择 JPG、JFIF 或 PNG。");
@@ -298,7 +298,7 @@ async function addImages(files, preset = null) {
         }
         if (images.length >= 8) throw new Error("一份审核最多可添加 8 张图。");
         const mime = /\.png$/i.test(file.name) ? "image/png" : "image/jpeg";
-        const data = await request("/api/ocr", file, mime);
+        const data = preset?.ocrBlocks ? { blocks: preset.ocrBlocks } : await request("/api/ocr", file, mime);
         if (!data.blocks.length) notes.push(`${file.name} · 未识别到文字，已保留原图供核对`);
         const id = `image-${nextImageId++}`;
         const blocks = data.blocks.map((block, offset) => ({ ...block, id: `${id}-${offset + 1}` }));
@@ -323,6 +323,10 @@ async function addImages(files, preset = null) {
     confirmation = "";
     identityRevision = 0;
     context.verified = false;
+    if (preset?.fixture) {
+      context.sampleKind = "artwork";
+      context.nutritionRequired = "required";
+    }
     selectedRef = null;
     zoom = 1;
     stale = true;
@@ -376,6 +380,13 @@ async function openSample(preset) {
   feedback(`正在载入${preset.name}原图…`);
   let files = [];
   try {
+    if (preset.fixture) {
+      const response = await fetch(`/demos/${preset.fixture}`);
+      if (!response.ok) throw new Error("无法载入演示文字。");
+      const fixture = await response.json();
+      if (fixture.synthetic !== true || !Array.isArray(fixture.blocks)) throw new Error("演示数据格式无效。");
+      preset = { ...preset, ocrBlocks: fixture.blocks };
+    }
     for (const name of preset.files || [preset.file]) {
       const response = await fetch(`/demos/${name}`);
       if (!response.ok) throw new Error("无法载入样例原图。");
@@ -399,7 +410,8 @@ function renderWorkspace(renderFields = false) {
   if (!hasImages) return;
   const product = draft?.fields.name?.value || sample?.name || "未命名标签";
   $("caseTitle").textContent = product;
-  $("caseMeta").textContent = `${images.length} 张标签图 · ${context.verified ? "识别值已校对" : "识别值待校对"}`;
+  $("caseMeta").textContent = `${images.length} 张标签图 · ${context.verified ? "识别值已校对" : "识别值待校对"}`
+    + (sample?.fixture ? " · 合成样例／预置 OCR，未运行模型" : "");
   for (const [key, value] of Object.entries(context)) {
     const control = $(key);
     if (!control) continue;
@@ -435,7 +447,7 @@ async function audit() {
     pruneVerifications();
     const auditContext = { ...context, verifiedFields: [...verifiedFields], staleVerifications: [...staleVerifications] };
     const answer = await request("/api/report", {
-      draft, context: auditContext, ...casePayload(), aiRemediation: true, aiAgents: true,
+      draft, context: auditContext, ...casePayload(), aiRemediation: !sample?.fixture, aiAgents: !sample?.fixture,
     });
     if (seq !== auditSeq) return;   // 已有更新的审核任务，丢弃这次晚返回的结果
     reportAnswer = answer;
@@ -1246,7 +1258,7 @@ async function confirmApprovedCandidates() {
 }
 
 $("runAgents").addEventListener("click", () => {
-  // B1：三角色候选已并入 /api/report 的 aiAgents，结果从本次返回体读取，不再单独调旧接口。
+  // 查看统一审核入口已返回的候选，不在这个按钮里发起另一轮模型调用。
   const output = $("agentOutput");
   const agents = reportAnswer?.meta?.aiAgents || result?.reportMeta?.aiAgents;
   if (!result) {
@@ -1371,3 +1383,12 @@ $("previewImage").addEventListener("error", () => {
   if (images.length) $("viewerCaption").textContent = "图片无法预览，请换用 JPG 或 PNG。";
 });
 new ResizeObserver(() => layoutPhoto(Boolean(selectedRef))).observe($("canvasViewport"));
+
+request("/api/health").then((health) => {
+  demoServer = health.demoMode === true;
+  if (demoServer) {
+    document.querySelector(".local-label").textContent = "预置文字演示";
+    $("dropArea").querySelector("p").textContent = "演示模式请使用右侧合成样例；识别自己的图片请按 README 切换正常模式。";
+  }
+  updateActions();
+}).catch(() => { /* Normal request handlers display connectivity errors on action. */ });

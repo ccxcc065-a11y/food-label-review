@@ -13,6 +13,7 @@ import sys
 import threading
 import urllib.error
 import urllib.request
+import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlsplit
 
@@ -42,8 +43,7 @@ STATIC_FILES = {
     "/admin.js": "admin.js",
 }
 DEMO_FILES = {
-    "beef-sauce.png", "cake.png", "grilled-fish.png", "rice-noodles.jpg", "seasoning.jpg",
-    "guoba-front.jpg", "guoba-back.jpg",
+    "synthetic-label.png", "synthetic-ocr.json",
 }
 APP_VERSION = "1.4.2"
 
@@ -56,6 +56,7 @@ class RequestError(Exception):
 
 OCR_BACKEND = None
 OCR_ENGINE = "本机 Apple Vision"
+DEMO_MODE = False
 
 
 def _rapidocr_site_packages():
@@ -349,7 +350,8 @@ class Handler(BaseHTTPRequestHandler):
                                          "auditSha256": program.get("auditSha256"),
                                          "programVersion": program.get("programVersion"),
                                          "ocrEngine": OCR_ENGINE, "ocrBackend": OCR_BACKEND,
-                                         "cloudReview": bool(os.getenv("LABEL_REVIEW_API_KEY", "").strip()),
+                                         "demoMode": DEMO_MODE,
+                                         "cloudReview": not DEMO_MODE and bool(os.getenv("LABEL_REVIEW_API_KEY", "").strip()),
                                          "pdfChrome": importlib.import_module("labelreview.report_api").chrome_status(),
                                          "pdfStamp": importlib.import_module("labelreview.report_api").stamp_status()})
                 return
@@ -437,6 +439,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.json_response(410, {"error": "该接口已退役，请使用 /api/report。",
                                           "retired": path, "migrateTo": retired[path]})
                 return
+            if DEMO_MODE and path in {"/api/ocr", "/api/review"}:
+                raise RequestError(503, "当前是预置文字演示。识别自己的图片请去掉 --demo 重启，并配置本机 OCR。")
             if path == "/api/ocr":
                 if media_type not in {"image/jpeg", "image/png"}:
                     raise RequestError(415, "只支持 JPEG 或 PNG 图片。")
@@ -482,6 +486,15 @@ class Handler(BaseHTTPRequestHandler):
                 elif path == "/api/report":
                     from labelreview.report_api import build as build_report
                     from labelreview.decision_set import StaleRevisionError
+                    if DEMO_MODE:
+                        # A demo process must never spend the owner's model key.
+                        payload["aiAgents"] = False
+                        payload["aiRemediation"] = False
+                        payload["sendCloud"] = False
+                        context = payload.get("context") or {}
+                        if not isinstance(context, dict):
+                            raise RequestError(400, "审核设置必须是对象。")
+                        payload["context"] = dict(context, demoMode=True)
                     try:
                         response = build_report(payload)
                     except StaleRevisionError as exc:
@@ -508,20 +521,24 @@ def running_here(url):
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         with opener.open(url + "api/health", timeout=1) as response:
             health = json.load(response)
-            return health.get("app") == "food-label-review" and health.get("version") == APP_VERSION
+            return (health.get("app") == "food-label-review" and health.get("version") == APP_VERSION
+                    and health.get("demoMode", False) == DEMO_MODE)
     except (OSError, ValueError, urllib.error.URLError):
         return False
 
 
 def open_browser(url):
-    subprocess.run(["open", url], check=False)
+    webbrowser.open(url)
 
 
 def main():
+    global DEMO_MODE, OCR_BACKEND, OCR_ENGINE
     parser = argparse.ArgumentParser(description="本地食品标签审核工具")
     parser.add_argument("--open", action="store_true", help="启动后打开浏览器")
     parser.add_argument("--port", type=int, help="指定监听端口")
+    parser.add_argument("--demo", action="store_true", help="使用公开合成样例的预置文字，不启动 OCR 或云端 AI")
     options = parser.parse_args()
+    DEMO_MODE = options.demo
     ports = [options.port] if options.port is not None else [PORT, PORT + 1, 18866, 18869, 18871]
     for port in ports:
         url = f"http://{HOST}:{port}/"
@@ -537,7 +554,11 @@ def main():
             continue
         try:
             with server:
-                prepare_ocr()
+                if DEMO_MODE:
+                    OCR_BACKEND = "demo"
+                    OCR_ENGINE = "预置文字演示（未运行 OCR）"
+                else:
+                    prepare_ocr()
                 print("审核工具运行于 " + url + "  ·  Ctrl+C 停止", flush=True)
                 if options.open:
                     open_browser(url)

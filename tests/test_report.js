@@ -10,6 +10,16 @@ require("../report.js");
 const { render } = window.LabelReport;
 const imageData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/6VUAAAAASUVORK5CYII=";
 
+test("演示报告披露预置 OCR 与无模型调用，不假定用户本地没有语料", () => {
+  const html = render({ context: { demoMode: true } });
+  assert.match(html, /合成流程演示/);
+  assert.match(html, /未运行 OCR 或云端 AI/);
+  assert.match(html, /不是真实产品合规结论/);
+  assert.match(html, /以本次来源和缺口记录为准/);
+  assert.doesNotMatch(html, /未导入授权标准正文/);
+  assert.doesNotMatch(render({}), /合成流程演示/);
+});
+
 test("报告按八节组织并保留跨图证据、来源和 2025 版审核结果", () => {
   const html = render({
     includeEvidence: true,

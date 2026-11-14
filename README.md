@@ -1,181 +1,112 @@
-# 食品标签审核台 · Food Label Review Workbench
+# 食品标签审核台 · Food Label Review
 
 [![tests](https://github.com/ccxcc065-a11y/food-label-review/actions/workflows/tests.yml/badge.svg)](https://github.com/ccxcc065-a11y/food-label-review/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB.svg)](https://www.python.org)
-![dependencies: none](https://img.shields.io/badge/runtime%20dependencies-none-brightgreen.svg)
 
-本地运行的**预包装食品标签审核工作台**：标签照片 → 本地 OCR → 字段与证据抽取 → 规则判定 → 可追溯的 HTML/PDF 报告。
+把同一商品的包装图片整理成可校对的字段、逐项检查记录和 HTML/PDF 报告。面向普通预包装食品的内部初审场景，当前是个人项目原型。
 
-面向**国内生产、直接面向消费者的普通预包装食品**。仓库只含程序：不含标准与法规正文，不含真实商品照片，也不承诺准确率（没有封存的人工真值集）。条款依据需自备授权文本。
+**先看效果：** [两分钟操作路线](docs/demo.md) · [合成样例报告](docs/demo-report.html) · [工程取舍与案例](docs/engineering-notes.md) · [验证范围](docs/validation.md)
 
-> Code only — no standards text, no regulation PDFs, no product photos. Bring your own authorized corpus; without it the workbench still runs and every clause-dependent judgement reports 未检查／未覆盖.
+![合成样例：左侧标签原图，右侧字段和营养表校对](docs/images/workbench-fields.png)
 
----
+> 截图使用虚构商品和预置 OCR。程序实际执行字段提取、规则与报告流程；没有运行 OCR 或云端模型，也没有导入标准正文。它展示操作能力，不代表法规审核已经通过。
 
-## 输出长什么样
+## 这个项目解决什么问题
 
-**有语料时**（真实输出，合成标签，已启用知识包）：
+标签初审不仅是识别文字。正反面信息分散，小数点可能识别错，缺少一张照片也可能被误当成标签漏标。审核人员需要能回到原图校对，并知道每项结论用了什么证据。
 
-```json
-{"id": "F04", "outcome": "review", "title": "日期标示需补充",
- "source": "4.7.1、4.7.2、10.1～10.3、附录 A.2",
- "detail": "当前资料未确认保质期到期日。2025 版一般要求生产日期及到期日。保质期至少 6 个月…"}
+项目起点是一道食品标签审核工具题。我负责需求拆解与验收口径，借助 AI 编程工具完成实现和迭代。重点是把模糊需求转成可验证的行为：
 
-{"id": "GB7718AL", "outcome": "review", "title": "致敏物质标示待核对",
- "source": "4.12、10.3、附录 D",
- "detail": "当前配料文字涉及「小麦粉」。原料名称线索还需区分直接投料、复合配料及深加工来源…"}
+- **先处理输入：** 一个商品支持多图，字段保留图片块引用，校对值与原始观察分开记录。
+- **约束判断：** 规则执行、AI 候选和人工决定分工；已标、未标、无法识别分别处理。
+- **交付可核对的结果：** 91 个检查点记录覆盖状态，报告统计与整改计划共用决定数据，下载保存的成稿字节。
+
+当前没有客户生产部署或人工封存的准确率评测集。[案例复盘](docs/engineering-notes.md)说明做过的取舍及尚未验证的部分。
+
+## 快速体验（无需 OCR、标准文本或模型 key）
+
+需要 **Python 3.9+、Node.js 20+**。Node 用于生成 HTML 报告。
+
+```bash
+git clone https://github.com/ccxcc065-a11y/food-label-review.git
+cd food-label-review
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python server.py --demo --open
 ```
 
-**没有语料时**（本仓库默认状态，可直接复现）：
+Windows 激活虚拟环境使用 `.venv\Scripts\activate`。也可不加 `--open`，手动打开终端显示的地址（默认 `http://127.0.0.1:8765`）；换端口用 `--port 8766`。
 
-```json
-{"id": "R14", "outcome": "gap", "title": "警示语检查缺少依据表，本条未检查",
- "detail": "本次运行读不到警示语依据表，4.14 按未检查／未覆盖处理，不得视为通过。"}
-```
+1. 点击「虚构原味饼干」，载入自制标签与预置文字。
+2. 切到「校对识别」，查看七行营养数据；点击「定位」回到图片区域。
+3. 查看审核结果和 HTML 报告。缺少授权依据的项目保持未检查／未覆盖。
+4. 点击「重新审核」创建新报告；下载已有报告读取原成稿。
 
-同一套代码，差别只在有没有授权语料。结论只有 `pass / issue / review / gap` 四种，**不存在"没有记录但算通过"**。
+`--demo` 在服务端禁用 OCR 和云端 AI，即使本机已有模型 key 也不会调用。演示数据不是准确率金标准，也没有模拟真实标准来伪造通过结论。
 
----
+如果本机之前导入过知识库，演示仍使用当前本地发布版；“没有标准正文”指全新检出的默认状态，不由 `--demo` 强制清空已有资料。
 
-## Features
+## 用自己的图片
 
-- **本地优先**：Python 3.9+ 标准库起 HTTP 服务，前端零构建（原生 JS）。OCR 在 macOS 走 Apple Vision（`swiftc` 编译），其它平台回退 RapidOCR；图片不出本机。
-- **条款级知识库**：切片器 `clause-index-4` 把授权文本切成条款级单元——10,107 条条款、1,241 张表、855 条条文、825 个章节，合计 13,362 片。发布包内容寻址，取文时校验文件 sha256。
-- **91 检查点账本**：45 条规则全部有代码实现；每个检查点记录授权依据、适用条件、执行方式与覆盖状态（当前 2 已有 / 68 部分 / 21 缺失；程序 64 / 人工 13 / 未实现 14）。
-- **证据可追溯**：字段三态（已标 / 未标 / 无法识别）＋ 图片块引用；不同结论要求不同证据，例如营养项需要 `value/unit/basis/printedNrv/reference/rounding`，净含量只要 `value/unit`。
-- **成稿前检查**：对最终 HTML 校验统计与章节数、残留标点、未替换占位、截断主体名；通过才写盘并记录 `contentHash`。PDF 从已保存 HTML 生成，不重跑 AI。
-- **可选 AI 只写解释**：事实、条款、数字由程序注入，AI 不得改写；失败、超时、输出截断一律如实记 `failed`。
-- **可测试**：36 个离线测试（25 Python + 11 Node），CI 覆盖 Python 3.9 / 3.11 与 Node 20。
+去掉 `--demo` 启动。macOS 需要 Xcode Command Line Tools 的 `swiftc`，使用本机 Apple Vision；其他平台可另装 `rapidocr onnxruntime`。图片识别与默认规则处理在本机执行。
 
-## How it works
+HTML 报告需要 Node；PDF 另外需要 Chrome/Chromium，使用 pypdf 添加报告编号和页码。缺少 PDF 条件时不影响 HTML。
+
+可选模型配置见 [配置说明](docs/configuration.md)。正常审核可调用 AI 审核与整改撰稿；AI 候选需校验，确定结论及关键数字不能由自由文案改写。此分支仍有超时和输出截断问题，尚未完成连续运行验收。
+
+## 审核流程与关键取舍
 
 ```mermaid
 flowchart LR
-  A[标签照片] --> B[本地 OCR<br/>Apple Vision / RapidOCR]
-  B --> C[字段与证据抽取]
-  C --> D{判定层}
-  D --> E[营养算术复算]
-  D --> F[91 检查点账本]
-  D --> G[证据三态机]
-  F --> H[条款检索 + 依据校验]
-  G --> I[裁定集]
-  H --> I
-  I --> J[统一整改计划]
-  J --> K[HTML 渲染]
-  K --> L{成稿前检查}
-  L -- 通过 --> M[成稿 + contentHash]
-  L -- 不通过 --> N[结构化错误，不写成稿]
-  M --> O[PDF：Chrome 打印 + pypdf 盖章]
+  A[多图 / 预置演示文字] --> B[字段与证据提取]
+  B --> C[适用性与证据检查]
+  C --> D[规则执行 / 可选 AI 审核]
+  D --> E[统一决定与整改计划]
+  E --> F[渲染后检查]
+  F --> G[保存 HTML 与内容摘要]
+  G --> H[异步 PDF]
 ```
 
-## 快速开始
+| 取舍 | 原因 | 实现入口 |
+|---|---|---|
+| 算术和证据门槛交程序；AI 产生候选与解释 | 可重复计算，保留模型语义错误的处理入口 | [audit.py](labelreview/audit.py)、[runtime_agents.py](labelreview/runtime_agents.py) |
+| 检查目录与实际完成状态分开 | 没有发现不能自动等于通过 | [rule_registry.py](labelreview/rule_registry.py) |
+| 候选批准绑定内容、证据和版本 | 避免上一轮批准套到下一轮另一条建议 | [decision_set.py](labelreview/decision_set.py) |
+| 保存后读取同一份成稿 | 查看、下载不重新调用模型；内容可用 SHA-256 核对 | [report_api.py](labelreview/report_api.py) |
+
+91 是检查目录数量，**不是 91 项自动审核均已完成**。当前元数据分类为 2 项已有、68 项部分、21 项缺失；“已有”也不等于业务验收通过。[完整目录](checkpoints.json)
+
+## 自备授权知识库
+
+仓库发布代码、规则元数据和自制样例，**不分发标准／法规正文、真实商品图片或企业资料**。MIT 许可不覆盖第三方内容。
+
+有授权文本时，按 [知识库接入说明](docs/configuration.md#授权知识库)重建本地发布包。没有语料时仍能体验提取与报告，但条款相关判断保持未覆盖。个人开发环境中的语料统计不作为这个公开版本的效果指标。
+
+## 验证
 
 ```bash
-git clone <this-repo> && cd food-label-review
-python3 server.py --open           # 默认 http://127.0.0.1:8765
-# 端口被占用时：python3 server.py --port 8766
+python -m unittest discover -s tests -p 'test_*.py' -v
+node --test tests/test_report.js
+# 无语料干净检出：另一个终端先启动 --demo，再检查真实 HTTP 流程：
+python scripts/check_demo.py http://127.0.0.1:8765
 ```
 
-- **macOS**：有 `swiftc` 时自动编译 `ocr.swift` 并使用 Apple Vision
-- **Linux / 其它**：`pip install rapidocr onnxruntime` 走 RapidOCR
-- **PDF**：需要本机 Chrome；缺失时如实标「PDF 不可用」，不影响 HTML 报告
-- **AI 复核**：设置 `LABEL_REVIEW_API_KEY` 与 `LABEL_REVIEW_MODEL` 才启用，不设就是纯规则版
+当前公开测试：**30 项 Python + 12 项 Node**，另有独立 HTTP 演示冒烟检查。CI 在 Python 3.9/3.11、Node 20 上运行，并从干净检出启动演示、检查网页资源、提取七行营养数据、生成并校验下载 HTML。
 
-## Bring your own corpus
+这些验证覆盖发布完整性、提取和报告约束，**不证明法规准确率、实拍 OCR 准确率或 AI 稳定性**。已完成与未完成的测试见 [验证记录](docs/validation.md)。
 
-程序通过 `knowledge/` 下的**元数据**工作，授权文本放 `documents/`：
+## 当前限制
 
-```
-knowledge/
-├── rules.json       # 规则 → 条款号 / 页码 的映射（元数据，已含）
-├── manifest.json    # 授权文件清单：文件名 + sha256（元数据，已含）
-├── coverage.json    # 条款覆盖状态（元数据，已含）
-├── exclusions.json  # 报告 08 节的排除说明模板（已含）
-├── grades.json      # 质量等级标准清单（已含）
-└── documents/       # ← 你自己放授权取得的 PDF/DOCX，本仓库不含
-```
+- 无封存的人工真值集，不提供准确率数字。
+- 连续真实 AI 审核末次记录为 4/5，未通过；一次调用实测输入约 166k token，发生超时，输入组织仍需优化。
+- 混图判定、版式核验及各类食品专项规则仍有未覆盖范围。
+- 进口、特殊膳食等不套用普通食品结论，需专项人工处理。
+- 公开演示没有标准正文，不能直接拿来出具真实产品合规结论。
 
-1. 把授权文本放进 `knowledge/documents/`（文件名与 `manifest.json` 一致，sha256 也要对得上）
-2. 重建知识包：`python3 -c "from labelreview import registry; registry.default_registry().publish(editor='you', reason='local corpus', knowledge_source='rebuild')"`
-3. 重启服务。条款检索才有内容，结论才会从「未覆盖」变成「已核验 / 待核」
+## 项目结构
 
-`manifest.json` 只登记文件名与哈希，没有任何正文；文件名清单本身是公开信息。
+`labelreview/` 包含提取、规则、依据、决定与报告模块；`app.js` 和 `report.js` 为无构建步骤的前端；`agents/` 保存两个活跃角色的契约；`knowledge/` 仅元数据；`demos/` 为自制演示输入；`tests/` 与 `scripts/check_demo.py` 验证公开分发路径。
 
-## 测试
-
-```bash
-python3 -m unittest discover -s tests -p "test_*.py"   # 25 tests
-node --test tests/test_report.js                       # 11 tests
-```
-
-离线、无需语料、无需服务、不联网。覆盖四类：条款切片器规则（行首 / 引用 / 升序）、
-无依据时必须弃权（无 `pass`、检查点无「通过」）、字段抽取与成稿安全检查、
-报告标点拼接（Node 真实渲染）。
-
-依赖授权语料与真实样例图的集成套件不随仓库发布，只在私有工作副本运行。
-
-## 仓库结构
-
-扁平包是有意为之：整条判定链在一个进程里自上而下读，模块都是函数库，不套框架。
-
-```
-├── server.py                 # 入口：python3 server.py --open
-├── labelreview/              # 全部逻辑（36 个模块）
-│   ├── server.py             #   HTTP 路由与静态资源
-│   ├── audit.py              #   审核主流程：字段、营养算术、逐项判定、证据门槛
-│   ├── extract.py            #   文字块 → 结构化字段 + 营养表
-│   ├── evidence.py           #   图片归属、覆盖、锚点
-│   ├── evidence_checklist.py #   证据清单三态机
-│   ├── clause_index.py       #   条款切片器
-│   ├── audit_retrieval.py    #   条款检索与引用校验
-│   ├── decision_set.py       #   裁定集：审批绑内容寻址 candidateId
-│   ├── report_plan.py        #   统一整改计划
-│   ├── report_render.py      #   服务端 HTML 渲染
-│   ├── report_check.py       #   成稿前渲染后检查
-│   ├── html_check.py         #   检查规则
-│   ├── registry.py           #   内容寻址发布包 + 版本
-│   ├── rule_registry.py      #   91 检查点账本与结果映射
-│   └── …                     #   knowledge / snapshot / runtime_agents / typography …
-├── report.js / app.js        # 前端（零依赖、无构建）
-├── index.html / admin.html   # 工作台与管理页
-├── checkpoints.json          # 91 检查点（机器可读）
-├── knowledge/                # 仅元数据
-├── scripts/                  # 工具脚本
-└── tests/                    # 离线测试
-```
-
-## 适用与不适用
-
-| 输入类型 | 处理方式 |
-|---|---|
-| 国产、直接面向消费者、普通预包装食品 | 主路径：按 91 检查点审核并出报告 |
-| 进口食品、小作坊、其他类别 | 分流人工，只提示专项核对项 |
-| 保健食品、特殊膳食、食用农产品、散装、现制现售 | 不适用，不套用普通食品结论 |
-| 版式要求（字高、面积比例、色差） | 无矢量稿或实测时一律标「未校验」 |
-
-## Roadmap / 已知缺口
-
-- **发布包不在仓库内**：仓库只带元数据，条款正文与已发布 bundle 需自备（法律原因）。
-- **21 个检查点未覆盖**：见 `checkpoints.json` 中 `coverageStatus = missing` 的条目。
-- **无人工真值集**：因此不给准确率数字。
-- **连续运行验收**：末次 4/5 未通过；失败模式为 AI 输出截断、超时、结果未知。
-- **跨平台 OCR 差异**：Apple Vision 与 RapidOCR 在密集营养表上读数不同，不能互相「复核」。
-- **AI 复核稳定性**：166k prompt 会触发 300s 超时，提示词压缩未完成。
-
-## Related projects
-
-- [Docling](https://github.com/docling-project/docling)：通用文档解析（PDF/DOCX/图表），本项目不做通用解析。
-- [invoice2data](https://github.com/invoice-x/invoice2data)：票据字段抽取，思路相近（模板 + 校验），领域不同。
-- [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) / [RapidOCR](https://github.com/RapidAI/RapidOCR)：本项目在非 macOS 平台的 OCR 依赖。
-- Apple Vision：macOS 上的本地 OCR。
-
-## Status
-
-工作副本 / 候选实现，未通过连续运行验收，未做业务验收。不构成合规结论，不能替代监管判定或专业复核。
-
-## License
-
-MIT，见 [LICENSE](LICENSE)。
-
-第三方标准、法规文本与商品图片不在本许可范围内，也不随仓库分发；使用本项目审核真实产品前，请自行取得所依据标准的合法副本，并对结论承担专业复核责任。
+代码使用 [MIT License](LICENSE)。
