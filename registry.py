@@ -340,12 +340,27 @@ PUBLISH_STAGES = ("staging-created", "mid-copy", "after-index-build", "staged-co
 BUNDLE_MANIFEST = "bundle-manifest.json"
 
 
-def _program_version():
+def _app_version():
+    """读取人工版本号，不依赖任何可选第三方库。
+
+    曾经因为 `import server` 会连带 `import PIL`，没装 Pillow 的机器上
+    版本号会静默变成空串，programVersion 只剩 `+hash`。版本号不实等于
+    报告不可追溯，所以这里直接读源码里的常量。
+    """
     try:
         import server
-        version = getattr(server, "APP_VERSION", "") or ""
+        return getattr(server, "APP_VERSION", "") or ""
     except Exception:
-        version = ""
+        try:
+            source = (ROOT / "server.py").read_text(encoding="utf-8")
+        except OSError:
+            return ""
+        match = re.search(r'^APP_VERSION\s*=\s*["\']([^"\']+)["\']', source, re.M)
+        return match.group(1) if match else ""
+
+
+def _program_version():
+    version = _app_version()
     audit = ROOT / "audit.py"
     return {"appVersion": version, "auditSha256": _file_sha(audit),
             "programVersion": version + ("+" + _file_sha(audit)[:12] if audit.is_file() else "")}

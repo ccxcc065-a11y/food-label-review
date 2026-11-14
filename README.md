@@ -1,5 +1,10 @@
 # 食品标签审核台 · Food Label Review Workbench
 
+[![tests](https://github.com/ccxcc065-a11y/food-label-review/actions/workflows/tests.yml/badge.svg)](https://github.com/ccxcc065-a11y/food-label-review/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-3776AB.svg)](https://www.python.org)
+![dependencies: none](https://img.shields.io/badge/runtime%20dependencies-none-brightgreen.svg)
+
 本地运行的**预包装食品标签审核工作台**：上传同一销售包装的正/背/侧/喷码照片 → 本地 OCR → 字段与证据抽取 → 规则判定 → 输出可追溯的 HTML/PDF 审核报告。
 
 **This repository contains code only.** It intentionally ships **no standards text, no regulation PDFs, and no real product photos**. Bring your own authorized corpus — see [Bring your own corpus](#bring-your-own-corpus). Without it the workbench still runs, and every clause-dependent judgement honestly reports **未检查／未覆盖 (not checked / not covered)** instead of guessing.
