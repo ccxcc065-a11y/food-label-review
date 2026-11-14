@@ -156,7 +156,7 @@ node --test tests/test_report.js                       # 11 tests
 
 ## Roadmap / 已知缺口
 
-- **发布包未开源**：仓库只带元数据，条款正文与已发布 bundle 需自备（法律原因）。
+- **发布包不在仓库内**：仓库只带元数据，条款正文与已发布 bundle 需自备（法律原因）。
 - **21 个检查点未覆盖**：见 `checkpoints.json` 中 `coverageStatus = missing` 的条目。
 - **无人工真值集**：因此不给准确率数字。
 - **连续运行验收**：末次 4/5 未通过；失败模式为 AI 输出截断、超时、结果未知。
@@ -176,4 +176,6 @@ node --test tests/test_report.js                       # 11 tests
 
 ## License
 
-MIT，见 [LICENSE](LICENSE)。第三方标准、法规文本与商品图片不在本许可证范围内，也不随仓库分发。
+MIT，见 [LICENSE](LICENSE)。
+
+第三方标准、法规文本与商品图片不在本许可范围内，也不随仓库分发；使用本项目审核真实产品前，请自行取得所依据标准的合法副本，并对结论承担专业复核责任。
